@@ -9,9 +9,6 @@ const FONT_FILE_MAP = {
   fidelity_sim: { name: 'FidelitySans', file: '/fonts/FidelitySans.ttf', fontStyle: 'normal' }
 };
 
-/**
- * ArrayBuffer to Binary String converter for jsPDF addFileToVFS
- */
 function arrayBufferToBinaryString(buffer) {
   let binary = '';
   const bytes = new Uint8Array(buffer);
@@ -22,9 +19,6 @@ function arrayBufferToBinaryString(buffer) {
   return binary;
 }
 
-/**
- * Helper to dynamically load font file if present in /public/fonts/ and register to jsPDF
- */
 async function loadAndRegisterCustomFont(doc, institution) {
   const fontSpec = FONT_FILE_MAP[institution.id] || (institution.pdfFontName ? {
     name: institution.pdfFontName,
@@ -36,23 +30,17 @@ async function loadAndRegisterCustomFont(doc, institution) {
 
   try {
     const response = await fetch(fontSpec.file);
-    if (!response.ok) {
-      console.info(`[FontLoader] Custom font asset '${fontSpec.file}' not found. Falling back to standard Helvetica vector stack.`);
-      return 'Helvetica';
-    }
+    if (!response.ok) return 'Helvetica';
 
     const buffer = await response.arrayBuffer();
     const binaryFont = arrayBufferToBinaryString(buffer);
 
-    // Register VFS file and add font face to jsPDF
     const vfsFileName = `${fontSpec.name}.ttf`;
     doc.addFileToVFS(vfsFileName, binaryFont);
     doc.addFont(vfsFileName, fontSpec.name, fontSpec.fontStyle);
 
-    console.log(`[FontLoader] Successfully registered and embedded custom font glyphs for '${fontSpec.name}' into vector PDF.`);
     return fontSpec.name;
   } catch (err) {
-    console.warn(`[FontLoader] Unable to load custom font '${fontSpec.file}':`, err);
     return 'Helvetica';
   }
 }
@@ -66,15 +54,11 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
     compress: true
   });
 
-  // Dynamically detect, register, and embed custom font file if dropped into /public/fonts/
   const bodyFontName = await loadAndRegisterCustomFont(doc, institution);
-
-  // Pull institution-specific PDF metadata profile or fallback
   const metaProfile = institution.pdfMetadata || {};
 
-  // Build 1:1 Exact PDF Property Object matching institution specs
+  // Build 1:1 PDF Metadata
   const pdfProps = {};
-
   pdfProps.title = metaProfile.title || `${institution.shortName} Monthly Account Statement - ${account.fullAccountNumber.slice(-4)}`;
   pdfProps.subject = metaProfile.subject || `Monthly Financial Account Statement for Period ${formatDate(statementMeta.startDate)} - ${formatDate(statementMeta.endDate)}`;
 
@@ -150,7 +134,6 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
   doc.setFontSize(16);
   doc.text(institution.name, margin + 14, y + 7);
 
-  // Right Header: Routing & Contact
   doc.setFont(bodyFontName, 'normal');
   doc.setFontSize(8);
   doc.setTextColor('#475569');
@@ -171,7 +154,6 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
 
   y += 9;
 
-  // Vector Line Separator
   doc.setDrawColor('#cbd5e1');
   doc.setLineWidth(0.5);
   doc.line(margin, y, pageWidth - margin, y);
@@ -190,7 +172,7 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
   doc.text(customerInfo.address, margin, y + 4.5);
   doc.text(customerInfo.cityStateZip, margin, y + 9);
 
-  // Right Side Account Meta Box
+  // Account Meta Box
   doc.setFillColor('#f8fafc');
   doc.setDrawColor('#e2e8f0');
   doc.roundedRect(pageWidth - margin - 75, y - 3, 75, 16, 1, 1, 'FD');
@@ -215,7 +197,7 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
 
   y += 20;
 
-  // 3. ACCOUNT FINANCIAL SUMMARY BANNER
+  // 3. FINANCIAL SUMMARY BANNER
   doc.setFillColor('#f1f5f9');
   doc.rect(margin, y, contentWidth, 14, 'F');
 
@@ -242,11 +224,126 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
 
   y += 20;
 
-  // 4. TRANSACTION LEDGER TABLE HEADER
+  // 4. CATEGORIZED SUB-LEDGERS IN VECTOR PDF
+  const txList = totals.processedTransactions || [];
+  const deposits = txList.filter(t => t.amount > 0);
+  const checksCleared = txList.filter(t => t.checkNumber);
+
+  // 4A. ELECTRONIC DEPOSITS & DIRECT CREDITS
+  if (deposits.length > 0) {
+    doc.setFont(bodyFontName, 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor('#065f46');
+    doc.text(`ELECTRONIC DEPOSITS & DIRECT CREDITS (${deposits.length})`, margin, y);
+    y += 4;
+
+    doc.setFillColor('#047857');
+    doc.rect(margin, y, contentWidth, 6, 'F');
+
+    doc.setFont(bodyFontName, 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor('#ffffff');
+    doc.text('DATE', margin + 3, y + 4);
+    doc.text('DESCRIPTION & REFERENCE', margin + 28, y + 4);
+    doc.text('AMOUNT ($)', pageWidth - margin - 3, y + 4, { align: 'right' });
+    y += 6;
+
+    deposits.forEach((tx, idx) => {
+      if (y > pageHeight - 20) {
+        currentPage++;
+        doc.addPage();
+        renderHeader(currentPage);
+        y = 18;
+      }
+      if (idx % 2 === 1) {
+        doc.setFillColor('#f0fdf4');
+        doc.rect(margin, y, contentWidth, 6, 'F');
+      }
+      doc.setFont('Courier', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor('#334155');
+      doc.text(formatDate(tx.date), margin + 3, y + 4);
+
+      doc.setFont(bodyFontName, 'normal');
+      doc.setTextColor('#0f172a');
+      doc.text(doc.splitTextToSize(tx.description, 110)[0], margin + 28, y + 4);
+
+      doc.setFont('Courier', 'bold');
+      doc.setTextColor('#047857');
+      doc.text(`+${formatCurrency(tx.amount)}`, pageWidth - margin - 3, y + 4, { align: 'right' });
+      y += 6;
+    });
+
+    y += 6;
+  }
+
+  // 4B. CHECKS CLEARED REGISTER
+  if (checksCleared.length > 0) {
+    if (y > pageHeight - 35) {
+      currentPage++;
+      doc.addPage();
+      renderHeader(currentPage);
+      y = 18;
+    }
+
+    doc.setFont(bodyFontName, 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor('#0f172a');
+    doc.text(`CHECKS CLEARED / PAID REGISTER (${checksCleared.length})`, margin, y);
+    y += 4;
+
+    doc.setFillColor('#334155');
+    doc.rect(margin, y, contentWidth, 6, 'F');
+
+    doc.setFont(bodyFontName, 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor('#ffffff');
+    doc.text('CHECK #', margin + 3, y + 4);
+    doc.text('DATE CLEARED', margin + 28, y + 4);
+    doc.text('DESCRIPTION', margin + 65, y + 4);
+    doc.text('AMOUNT ($)', pageWidth - margin - 3, y + 4, { align: 'right' });
+    y += 6;
+
+    checksCleared.forEach((tx, idx) => {
+      if (y > pageHeight - 20) {
+        currentPage++;
+        doc.addPage();
+        renderHeader(currentPage);
+        y = 18;
+      }
+      doc.setFont('Courier', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor('#0f172a');
+      doc.text(`#${tx.checkNumber}`, margin + 3, y + 4);
+
+      doc.setFont('Courier', 'normal');
+      doc.setTextColor('#475569');
+      doc.text(formatDate(tx.date), margin + 28, y + 4);
+
+      doc.setFont(bodyFontName, 'normal');
+      doc.setTextColor('#0f172a');
+      doc.text(doc.splitTextToSize(tx.description, 70)[0], margin + 65, y + 4);
+
+      doc.setFont('Courier', 'bold');
+      doc.text(formatCurrency(tx.amount), pageWidth - margin - 3, y + 4, { align: 'right' });
+      y += 6;
+    });
+
+    y += 6;
+  }
+
+  // 4C. FULL TRANSACTION LEDGER BREAKDOWN
+  if (y > pageHeight - 35) {
+    currentPage++;
+    doc.addPage();
+    renderHeader(currentPage);
+    y = 18;
+  }
+
   doc.setFont(bodyFontName, 'bold');
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   doc.setTextColor('#0f172a');
-  doc.text('TRANSACTION LEDGER BREAKDOWN', margin, y);
+  doc.text('CARD PURCHASES & ELECTRONIC WITHDRAWALS', margin, y);
 
   y += 4;
 
@@ -264,9 +361,6 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
 
   y += 7;
 
-  // Table Rows (Vector Multi-page Loop with Running Headers)
-  const txList = totals.processedTransactions || [];
-
   txList.forEach((tx, index) => {
     if (y > pageHeight - 20) {
       currentPage++;
@@ -274,7 +368,6 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
       renderHeader(currentPage);
       y = 18;
 
-      // Repeat Table Header
       doc.setFillColor('#0f172a');
       doc.rect(margin, y, contentWidth, 7, 'F');
       doc.setFont(bodyFontName, 'bold');
@@ -328,9 +421,37 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
     y += 6;
   });
 
-  y += 8;
+  y += 6;
 
-  // 5. REG DD FEE SUMMARY & REGULATORY FOOTER
+  // 5. MID-STATEMENT PROMOTIONAL ADVERTISING BANNER IN VECTOR PDF
+  if (y > pageHeight - 35) {
+    currentPage++;
+    doc.addPage();
+    renderHeader(currentPage);
+    y = 18;
+  }
+
+  doc.setFillColor(primaryHex);
+  doc.roundedRect(margin, y, contentWidth, 18, 1, 1, 'F');
+
+  doc.setFont(bodyFontName, 'bold');
+  doc.setFontSize(7);
+  doc.setTextColor('#93c5fd');
+  doc.text('SPECIAL MEMBER ADVISORY & PROMOTION', margin + 4, y + 4.5);
+
+  doc.setFont(bodyFontName, 'bold');
+  doc.setFontSize(8.5);
+  doc.setTextColor('#ffffff');
+  doc.text(`Maximize Your Financial Returns with ${institution.shortName}`, margin + 4, y + 9.5);
+
+  doc.setFont(bodyFontName, 'normal');
+  doc.setFontSize(7);
+  doc.setTextColor('#e2e8f0');
+  doc.text(`Visit ${institution.website} or call support at ${institution.customerServicePhone} for active member benefits.`, margin + 4, y + 14.5);
+
+  y += 24;
+
+  // 6. REG DD FEE SUMMARY & REGULATORY FOOTER
   if (y > pageHeight - 45) {
     currentPage++;
     doc.addPage();
@@ -338,7 +459,6 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
     y = 18;
   }
 
-  // Reg DD Box in PDF
   doc.setFillColor('#f8fafc');
   doc.setDrawColor('#e2e8f0');
   doc.rect(margin, y, contentWidth, 22, 'FD');
