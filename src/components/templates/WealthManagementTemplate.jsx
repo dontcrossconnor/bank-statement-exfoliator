@@ -12,7 +12,7 @@ export default function WealthManagementTemplate({
 }) {
   return (
     <div 
-      className="bg-slate-900 text-slate-100 p-8 max-w-[210mm] mx-auto shadow-2xl rounded-sm print:bg-white print:text-slate-900 print:shadow-none print:max-w-none print:p-0"
+      className="bg-slate-900 text-slate-100 p-6 w-full mx-auto rounded-sm print:bg-white print:text-slate-900 print:shadow-none print:max-w-none print:p-0"
       style={{ fontFamily: institution.fontFamily || 'Cinzel, Georgia, serif' }}
     >
       

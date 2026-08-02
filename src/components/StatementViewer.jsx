@@ -51,9 +51,9 @@ export default function StatementViewer({
   };
 
   return (
-    <div id="printable-statement" className="py-6 px-4 flex justify-center">
-      {/* Exact A4 dimensions container in screen view (210mm x 297mm per page aspect) */}
-      <div className="w-[210mm] min-h-[297mm] bg-white shadow-2xl rounded-sm border border-slate-200 print:shadow-none print:border-none print:w-full print:min-h-0">
+    <div id="printable-statement" className="py-6 px-4 flex justify-center w-full overflow-x-auto">
+      {/* Standard Letter (8.5in / 816px) canvas constrained container */}
+      <div className="w-full max-w-[816px] bg-white shadow-2xl rounded-sm border border-slate-200 print:shadow-none print:border-none print:w-full print:max-w-none print:p-0">
         {renderTemplate()}
       </div>
     </div>

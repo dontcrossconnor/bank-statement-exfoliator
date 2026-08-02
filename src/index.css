@@ -50,6 +50,8 @@
   body {
     background-color: white !important;
     color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .no-print {
     display: none !important;
@@ -58,11 +60,20 @@
     padding: 0 !important;
     margin: 0 !important;
     width: 100% !important;
-    max-width: none !important;
+    max-width: 100% !important;
+  }
+  .statement-page-canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
   }
   @page {
-    size: A4 portrait;
-    margin: 15mm 10mm 15mm 10mm;
+    size: letter portrait; /* US Standard 8.5in x 11in Bank Statement Dimension */
+    margin: 0.4in;
   }
 
   /* Force clean page breaks between major statement sections when printing */
@@ -77,13 +88,12 @@
   }
 }
 
-/* Screen Page Container Styling */
+/* Screen Page Canvas Container Styling (Letter / A4 Standard Dimensions) */
 .statement-page-canvas {
-  width: 210mm;
-  min-h: 297mm;
-  padding: 15mm 12mm;
+  width: 100%;
+  max-width: 816px; /* Exact 8.5in at 96 DPI standard screen rendering */
+  padding: 24px 28px;
   background: white;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
 }
 

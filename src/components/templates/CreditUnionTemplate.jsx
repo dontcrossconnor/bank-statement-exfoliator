@@ -12,7 +12,7 @@ export default function CreditUnionTemplate({
 }) {
   return (
     <div 
-      className="bg-emerald-950/5 text-slate-900 p-8 max-w-[210mm] mx-auto shadow-2xl rounded-sm border-t-8 border-emerald-700 print:shadow-none print:max-w-none print:p-0 print:border-none"
+      className="bg-emerald-950/5 text-slate-900 p-6 w-full mx-auto rounded-sm border-t-8 border-emerald-700 print:shadow-none print:max-w-none print:p-0 print:border-none"
       style={{ fontFamily: institution.fontFamily || 'Roboto, Arial, sans-serif' }}
     >
       
