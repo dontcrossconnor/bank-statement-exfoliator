@@ -1,7 +1,6 @@
 import jsPDF from 'jspdf';
 import { formatCurrency, formatDate } from './formatters';
 
-// Map of institutional font file candidates in /public/fonts/
 const FONT_FILE_MAP = {
   bofa_sim: { name: 'ConnectionsSans', file: '/fonts/ConnectionsSans.ttf', fontStyle: 'normal' },
   wells_sim: { name: 'WellsFargoSans', file: '/fonts/WellsFargoSans.ttf', fontStyle: 'normal' },
@@ -231,6 +230,13 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
 
   // 4A. ELECTRONIC DEPOSITS & DIRECT CREDITS
   if (deposits.length > 0) {
+    if (y > pageHeight - 35) {
+      currentPage++;
+      doc.addPage();
+      renderHeader(currentPage);
+      y = 18;
+    }
+
     doc.setFont(bodyFontName, 'bold');
     doc.setFontSize(9);
     doc.setTextColor('#065f46');
@@ -451,7 +457,107 @@ export async function exportVectorizedPdf(institution, customerInfo, statementMe
 
   y += 24;
 
-  // 6. REG DD FEE SUMMARY & REGULATORY FOOTER
+  // 6. CYCLE INTEREST & AVERAGE DAILY BALANCE BOX
+  if (y > pageHeight - 35) {
+    currentPage++;
+    doc.addPage();
+    renderHeader(currentPage);
+    y = 18;
+  }
+
+  const startDate = new Date(statementMeta.startDate);
+  const endDate = new Date(statementMeta.endDate);
+  const cycleDays = Math.max(1, Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1);
+
+  doc.setFillColor('#f8fafc');
+  doc.setDrawColor('#cbd5e1');
+  doc.rect(margin, y, contentWidth, 18, 'FD');
+
+  doc.setFont(bodyFontName, 'bold');
+  doc.setFontSize(8);
+  doc.setTextColor('#0f172a');
+  doc.text('STATEMENT CYCLE INTEREST & APYE SUMMARY', margin + 3, y + 4.5);
+  doc.setFont('Courier', 'normal');
+  doc.setFontSize(7);
+  doc.setTextColor('#64748b');
+  doc.text(`Days in Cycle: ${cycleDays}`, pageWidth - margin - 3, y + 4.5, { align: 'right' });
+
+  const boxW = (contentWidth - 6) / 4;
+  const avgBal = totals.endingBalance; // approximate for box
+  const apyNum = parseFloat(account.apy) || 0.05;
+  const interestEarned = (avgBal * (apyNum / 100) * (cycleDays / 365));
+
+  doc.setFont(bodyFontName, 'normal');
+  doc.setFontSize(6.5);
+  doc.setTextColor('#475569');
+  doc.text('AVG DAILY BAL', margin + 4, y + 9.5);
+  doc.text('INTEREST EARNED', margin + 4 + boxW, y + 9.5);
+  doc.text('APYE', margin + 4 + boxW * 2, y + 9.5);
+  doc.text('INTEREST YTD', margin + 4 + boxW * 3, y + 9.5);
+
+  doc.setFont('Courier', 'bold');
+  doc.setFontSize(8);
+  doc.setTextColor('#0f172a');
+  doc.text(formatCurrency(avgBal), margin + 4, y + 14.5);
+  doc.setTextColor('#059669');
+  doc.text(`+${formatCurrency(interestEarned)}`, margin + 4 + boxW, y + 14.5);
+  doc.setTextColor('#0f172a');
+  doc.text(account.apy || '0.05%', margin + 4 + boxW * 2, y + 14.5);
+  doc.setTextColor('#059669');
+  doc.text(formatCurrency(account.interestYtd || 12.45), margin + 4 + boxW * 3, y + 14.5);
+
+  y += 24;
+
+  // 7. DAILY LEDGER BALANCE SUMMARY TABLE
+  if (y > pageHeight - 35) {
+    currentPage++;
+    doc.addPage();
+    renderHeader(currentPage);
+    y = 18;
+  }
+
+  doc.setFont(bodyFontName, 'bold');
+  doc.setFontSize(8);
+  doc.setTextColor('#0f172a');
+  doc.text('DAILY LEDGER BALANCE SUMMARY (CLOSING BALANCES)', margin, y);
+  y += 4;
+
+  const dailyBalances = {};
+  let running = account.startingBalance;
+  txList.forEach(tx => {
+    running += parseFloat(tx.amount);
+    dailyBalances[tx.date] = running;
+  });
+  const entries = Object.entries(dailyBalances).slice(0, 12); // Grid up to 12 days sample
+
+  if (entries.length > 0) {
+    const gridCols = 4;
+    const itemW = contentWidth / gridCols;
+    entries.forEach(([dateStr, bal], i) => {
+      const col = i % gridCols;
+      const row = Math.floor(i / gridCols);
+      const itemY = y + (row * 8);
+
+      if (itemY > pageHeight - 20) return;
+
+      doc.setFillColor('#f8fafc');
+      doc.setDrawColor('#e2e8f0');
+      doc.rect(margin + (col * itemW), itemY, itemW - 1, 7, 'FD');
+
+      doc.setFont('Courier', 'normal');
+      doc.setFontSize(6.5);
+      doc.setTextColor('#64748b');
+      doc.text(formatDate(dateStr), margin + (col * itemW) + 2, itemY + 3);
+
+      doc.setFont('Courier', 'bold');
+      doc.setTextColor('#0f172a');
+      doc.text(formatCurrency(bal), margin + (col * itemW) + itemW - 3, itemY + 5.5, { align: 'right' });
+    });
+
+    y += (Math.ceil(entries.length / gridCols) * 8) + 6;
+  }
+
+  // 8. REG DD FEE SUMMARY & REGULATORY FOOTER
   if (y > pageHeight - 45) {
     currentPage++;
     doc.addPage();
