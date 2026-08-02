@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----------------------------------------------------
+   1:1 PROPRIETARY BANK FONT DECLARATIONS
+   Place your .ttf / .woff2 font files in /public/fonts/
+   ---------------------------------------------------- */
+@font-face {
+  font-family: 'Connections Sans';
+  src: local('Connections Sans'), local('Connections-Sans'), url('/fonts/ConnectionsSans.woff2') format('woff2'), url('/fonts/ConnectionsSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Connections';
+  src: local('Connections'), url('/fonts/Connections.woff2') format('woff2'), url('/fonts/Connections.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Wells Fargo Sans';
+  src: local('Wells Fargo Sans'), local('WellsFargoSans'), url('/fonts/WellsFargoSans.woff2') format('woff2'), url('/fonts/WellsFargoSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Schwab Sans';
+  src: local('Schwab Sans'), local('SchwabSans'), local('Charles Schwab Sans'), url('/fonts/SchwabSans.woff2') format('woff2'), url('/fonts/SchwabSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fidelity Sans';
+  src: local('Fidelity Sans'), local('FidelitySans'), url('/fonts/FidelitySans.woff2') format('woff2'), url('/fonts/FidelitySans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  #printable-statement {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 15mm 10mm 15mm 10mm;
+  }
+
+  /* Force clean page breaks between major statement sections when printing */
+  .page-break-before {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  .page-break-inside-avoid {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+
+/* Screen Page Container Styling */
+.statement-page-canvas {
+  width: 210mm;
+  min-h: 297mm;
+  padding: 15mm 12mm;
+  background: white;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+}
+
+/* Custom scrollbars for high tech look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
