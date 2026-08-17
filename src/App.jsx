@@ -15,13 +15,14 @@ export default function App() {
   const [isQuickstartOpen, setIsQuickstartOpen] = useState(false);
 
   // Institution & Branding State
-  const [institution, setInstitution] = useState(INSTITUTIONS.apex_national);
+  const [institution, setInstitution] = useState(INSTITUTIONS.us_metro_bank);
 
   // Customer State
   const [customerInfo, setCustomerInfo] = useState({
-    name: 'SARAH M. JENKINS',
-    address: '742 EVERGREEN TERRACE, SUITE 2B',
-    cityStateZip: 'CHARLOTTE, NC 28202'
+    name: 'ONE WEST MEDICAL GROUP, INC.',
+    subName: 'GLENN MARSHAK',
+    address: '8920 WILSHIRE BLVD STE 301',
+    cityStateZip: 'BEVERLY HILLS CA 90211-3207'
   });
 
   // Statement Metadata & Multi-Month Controls
@@ -32,54 +33,49 @@ export default function App() {
   const [monthsCount, setMonthsCount] = useState('1');
 
   // Balance Target Engine Inputs
-  const [startBalanceInput, setStartBalanceInput] = useState('4250.80');
-  const [endBalanceInput, setEndBalanceInput] = useState('6820.45');
+  const [startBalanceInput, setStartBalanceInput] = useState('389218.13');
+  const [endBalanceInput, setEndBalanceInput] = useState('389796.60');
 
   // Fixed Recurring Bills Rules
-  const [recurringRules, setRecurringRules] = useState([
-    { description: 'EMPLOYER DIRECT DEPOSIT PAYROLL PPD', amount: 3250.00, day: 1, category: 'Income' },
-    { description: 'EMPLOYER DIRECT DEPOSIT PAYROLL PPD', amount: 3250.00, day: 15, category: 'Income' },
-    { description: 'RESIDENTIAL MORTGAGE ESCROW AUTOPAY', amount: -1850.00, day: 1, category: 'Housing' },
-    { description: 'DUKE ENERGY UTILITY PAY PPD', amount: -145.20, day: 8, category: 'Utilities' },
-    { description: 'NETFLIX DIGITAL SUBSCRIPTION', amount: -19.99, day: 12, category: 'Subscriptions' }
-  ]);
+  const [recurringRules, setRecurringRules] = useState([]);
 
   // Configured Locales
-  const [locales, setLocales] = useState(['Charlotte, NC', 'Raleigh, NC']);
+  const [locales, setLocales] = useState(['Los Angeles, CA', 'Beverly Hills, CA']);
 
   // Accounts State
   const [accounts, setAccounts] = useState([
     {
-      accountNumber: '**** **** 4821',
-      fullAccountNumber: '4821-9034-1182-4821',
-      type: 'Premier Checking Account',
-      startingBalance: 4250.80,
-      apy: '0.05%',
-      interestYtd: 4.82
+      accountNumber: 'XXXXXX8501',
+      fullAccountNumber: 'XXXXXX8501',
+      type: 'ANALYZED BUSINESS CHECKING',
+      startingBalance: 389218.13,
+      apy: '1.75%',
+      interestYtd: 4049.29
     }
   ]);
 
-  // Initial Transaction Load using Smart Generator
-  const [transactions, setTransactions] = useState([]);
-
-  useEffect(() => {
-    const initialTx = generateSmartMultiMonthTransactions({
-      startDateStr: '2026-07-01',
-      monthsCount: 1,
-      startBalance: 4250.80,
-      endBalance: 6820.45,
-      recurringRules,
-      locales
-    });
-    setTransactions(initialTx);
-  }, []);
+  // Initial Transaction Load (Only Interest Credit, 0 Debits)
+  const [transactions, setTransactions] = useState([
+    {
+      id: 'tx-1',
+      date: '2026-07-31',
+      description: 'INTEREST CREDIT',
+      amount: 578.47,
+      type: 'Interest'
+    }
+  ]);
 
   // Update End Date whenever start date or months change
   useEffect(() => {
-    const start = new Date(statementMeta.startDate);
-    const m = parseInt(monthsCount, 10) || 1;
-    const end = new Date(start.getFullYear(), start.getMonth() + m, 0);
-    const endStr = end.toISOString().split('T')[0];
+    if (!statementMeta.startDate) return;
+    const [y, m, d] = statementMeta.startDate.split('-').map(Number);
+    const count = parseInt(monthsCount, 10) || 1;
+    // Month is 0-indexed; month m + count - 1 with day 0 gives last day of the target month
+    const end = new Date(y, (m - 1) + count, 0);
+    const endYear = end.getFullYear();
+    const endMonth = String(end.getMonth() + 1).padStart(2, '0');
+    const endDay = String(end.getDate()).padStart(2, '0');
+    const endStr = `${endYear}-${endMonth}-${endDay}`;
     setStatementMeta(prev => ({ ...prev, endDate: endStr }));
   }, [statementMeta.startDate, monthsCount]);
 

@@ -11,6 +11,7 @@ export default function StatementViewer({
 }) {
   // Map institution ID to specific 1:1 design template layout
   const getTemplateId = () => {
+    if (institution.id === 'us_metro_bank') return 'us_metro_style';
     if (institution.id === 'chase_sim') return 'chase_style';
     if (institution.id === 'bofa_sim') return 'bofa_style';
     if (institution.id === 'wells_sim') return 'wells_style';

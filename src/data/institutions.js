@@ -297,10 +297,59 @@ export const INSTITUTIONS = {
       creator: 'Fidelity Customer Document System (v18.2)',
       producer: 'Adobe Distiller 22.0 for Linux'
     }
+  },
+  us_metro_bank: {
+    id: 'us_metro_bank',
+    name: 'US METRO BANK',
+    shortName: 'US Metro Bank',
+    tagline: 'Personal & Business Banking Solutions',
+    type: 'Bank',
+    charter: 'FDIC Insured Charter #58379',
+    routingNumber: '122244247',
+    customerServicePhone: '714-620-8888',
+    website: 'www.usmetrobank.com',
+    primaryColor: '#1e3a68',
+    accentColor: '#b83232',
+    secondaryColor: '#2b5288',
+    logoText: 'US METRO',
+    logoSubtext: 'BANK',
+    fontFamily: 'Arial, Helvetica, sans-serif',
+    headingFont: 'Arial, Helvetica, sans-serif',
+    monoFont: 'Courier, monospace',
+    regulatoryBody: 'FDIC',
+    regulatoryNotice: 'Equal Housing Lender. Member FDIC.',
+    address: '3580 Wilshire Blvd. Ste 1800, Los Angeles, CA 90010',
+    branchName: 'Wilshire',
+    branchAddress: '3580 Wilshire Blvd Suite 101, Los Angeles CA 90010',
+    branchPhone: '213-201-3300',
+    pdfMetadata: {
+      title: 'US Metro Bank Account Statement',
+      subject: 'Monthly Account Statement',
+      author: 'US Metro Bank Core Banking System',
+      creator: 'Microsoft: Print To PDF',
+      producer: 'Microsoft: Print To PDF',
+      keywords: 'US Metro Bank, Analyzed Business Checking, Statement, FDIC'
+    }
   }
 };
 
 export const PRESET_SCENARIOS = [
+  {
+    id: 'us_metro_scenario',
+    name: 'US Metro Bank Analyzed Business Checking',
+    description: '1:1 authentic replica of US Metro Bank commercial business statement with branch details and service charge ledger.',
+    institutionId: 'us_metro_bank',
+    accounts: [
+      {
+        accountNumber: 'XXXXXX8501',
+        fullAccountNumber: 'XXXXXX8501',
+        type: 'ANALYZED BUSINESS CHECKING',
+        startingBalance: 4901.83,
+        apy: '0.00%',
+        interestYtd: 0.00
+      }
+    ]
+  },
   {
     id: 'personal_checking',
     name: 'Standard Personal Checking & High-Yield Savings',

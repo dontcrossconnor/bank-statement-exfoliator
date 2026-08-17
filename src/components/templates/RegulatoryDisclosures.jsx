@@ -1,4 +1,5 @@
 import React from 'react';
+import { FdicLogo, EqualHousingLenderLogo } from '../vectors';
 
 export default function RegulatoryDisclosures({ institution }) {
   return (
@@ -31,14 +32,15 @@ export default function RegulatoryDisclosures({ institution }) {
         </div>
       </div>
 
-      {/* Footer Branding Seal */}
-      <div className="flex items-center justify-between text-[9px] text-slate-500 pt-2 border-t border-slate-200">
-        <div>
+      {/* Footer Branding Seal with Vector Badges */}
+      <div className="flex items-center justify-between text-[9px] text-slate-500 pt-3 border-t border-slate-200">
+        <div className="flex items-center space-x-2">
           <span>Official Monthly Account Statement • </span>
-          <span>{institution.name}</span>
+          <span className="font-semibold text-slate-700">{institution.name}</span>
         </div>
-        <div className="font-bold tracking-widest text-slate-700 uppercase">
-          EQUAL HOUSING LENDER • MEMBER {institution.regulatoryBody}
+        <div className="flex items-center space-x-3">
+          <FdicLogo className="h-4" color="#475569" showSubtext={false} />
+          <EqualHousingLenderLogo className="h-5" color="#475569" />
         </div>
       </div>
 

@@ -1,0 +1,10 @@
+<svg viewBox="0 0 54 70" xmlns="http://www.w3.org/2000/svg">
+  <g fill="#1E3A5F">
+    <path d="M 27 2 L 2 23 L 7 27 L 10 24.5 V 42 H 44 V 24.5 L 47 27 L 52 23 L 27 2 Z M 38 7 H 43 V 15.5 L 38 11.5 V 7 Z" />
+    <rect x="18" y="27" width="18" height="3.5" rx="0.5" />
+    <rect x="18" y="33.5" width="18" height="3.5" rx="0.5" />
+    <text x="27" y="50" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="6.5" letter-spacing="0.6px">EQUAL</text>
+    <text x="27" y="58" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="6.5" letter-spacing="0.6px">HOUSING</text>
+    <text x="27" y="66" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="800" font-size="6.5" letter-spacing="0.6px">LENDER</text>
+  </g>
+</svg>

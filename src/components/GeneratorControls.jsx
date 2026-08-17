@@ -409,6 +409,7 @@ export default function GeneratorControls({
                   className="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-slate-100"
                 >
                   <optgroup label="Commercial Banks">
+                    <option value="us_metro_bank">US Metro Bank (1:1)</option>
                     <option value="apex_national">Apex National Bank</option>
                     <option value="chase_sim">Chase Bank N.A.</option>
                     <option value="bofa_sim">Bank of America N.A.</option>

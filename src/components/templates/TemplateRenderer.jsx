@@ -2,9 +2,13 @@ import React from 'react';
 import CommercialBankTemplate from './CommercialBankTemplate';
 import CreditUnionTemplate from './CreditUnionTemplate';
 import WealthManagementTemplate from './WealthManagementTemplate';
+import USMetroBankTemplate from './USMetroBankTemplate';
+import { ChaseLogo, BofaLogo, WellsFargoLogo, UsMetroLogo } from '../vectors';
 
 export default function TemplateRenderer({ templateId, ...props }) {
   switch (templateId) {
+    case 'us_metro_style':
+      return <USMetroBankTemplate {...props} />;
     case 'chase_style':
       return <ChaseStyleTemplate {...props} />;
     case 'bofa_style':
@@ -21,19 +25,14 @@ export default function TemplateRenderer({ templateId, ...props }) {
   }
 }
 
-// 1:1 Chase Specific Layout Template
+// 1:1 Chase Specific Layout Template (Pure Vector Logos)
 export function ChaseStyleTemplate({ institution, customerInfo, statementMeta, account, totals, transactions }) {
-  const cardLast4 = account.accountNumber.slice(-4);
-
   return (
     <div className="statement-page-canvas text-slate-900 p-6 font-sans border-t-8 border-[#114b78]">
-      {/* Chase Top Brand Header Bar */}
+      {/* Chase Top Brand Header Bar with Pure Vector Logo */}
       <div className="flex justify-between items-center border-b border-slate-300 pb-3 mb-4">
-        <div className="flex items-center space-x-2">
-          <div className="w-7 h-7 bg-[#114b78] rounded flex items-center justify-center font-black text-white text-xs">
-            C
-          </div>
-          <span className="font-extrabold text-xl tracking-tight text-[#114b78]">CHASE</span>
+        <div className="flex items-center">
+          <ChaseLogo className="h-8" showText={true} />
         </div>
         <div className="text-right text-[10px] text-slate-600 font-mono">
           <div>Page 1 of 2</div>
@@ -60,14 +59,14 @@ export function ChaseStyleTemplate({ institution, customerInfo, statementMeta, a
   );
 }
 
-// 1:1 Bank of America Specific Layout Template
+// 1:1 Bank of America Specific Layout Template (Pure Vector Logos)
 export function BofaStyleTemplate({ institution, customerInfo, statementMeta, account, totals, transactions }) {
   return (
     <div className="statement-page-canvas text-slate-900 p-6 font-sans border-t-8 border-[#dc2626]">
       <div className="flex justify-between items-start border-b-2 border-[#dc2626] pb-3 mb-4">
         <div>
-          <span className="font-extrabold text-2xl tracking-tighter text-[#dc2626]">BANK OF AMERICA</span>
-          <div className="text-[10px] text-slate-500 uppercase font-semibold">Preferred Rewards e-Statement</div>
+          <BofaLogo className="h-7" showText={true} />
+          <div className="text-[10px] text-slate-500 uppercase font-semibold mt-1">Preferred Rewards e-Statement</div>
         </div>
         <div className="text-right text-[11px] text-slate-600">
           <div>{customerInfo.name}</div>
@@ -79,12 +78,12 @@ export function BofaStyleTemplate({ institution, customerInfo, statementMeta, ac
   );
 }
 
-// 1:1 Wells Fargo Specific Layout Template
+// 1:1 Wells Fargo Specific Layout Template (Pure Vector Logos)
 export function WellsStyleTemplate({ institution, customerInfo, statementMeta, account, totals, transactions }) {
   return (
     <div className="statement-page-canvas text-slate-900 p-6 font-sans border-t-8 border-[#b91c1c]">
       <div className="flex justify-between items-center bg-[#b91c1c] text-white p-3 rounded-t mb-4">
-        <span className="font-black text-lg tracking-wider">WELLS FARGO</span>
+        <WellsFargoLogo className="h-7" showText={true} />
         <span className="text-xs font-mono">Everyday Checking Summary</span>
       </div>
       <CommercialBankTemplate institution={institution} customerInfo={customerInfo} statementMeta={statementMeta} account={account} totals={totals} transactions={transactions} />

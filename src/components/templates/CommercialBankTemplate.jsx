@@ -6,6 +6,7 @@ import RegDdFeeSummary from './RegDdFeeSummary';
 import DailyBalanceTable from './DailyBalanceTable';
 import CycleInterestSummary from './CycleInterestSummary';
 import StatementAdBanner from './StatementAdBanner';
+import { ApexLogo, ChaseLogo, BofaLogo, WellsFargoLogo, UsMetroLogo } from '../vectors';
 
 export default function CommercialBankTemplate({
   institution,
@@ -39,16 +40,30 @@ export default function CommercialBankTemplate({
         </div>
 
         <div className="text-right space-y-1">
-          <div className="flex items-center justify-end space-x-2">
-            <div 
-              className="w-6 h-6 rounded flex items-center justify-center font-black text-white text-xs"
-              style={{ backgroundColor: institution.accentColor }}
-            >
-              {institution.logoText[0]}
-            </div>
-            <span className="font-extrabold text-base tracking-wider text-slate-900 uppercase">
-              {institution.name}
-            </span>
+          <div className="flex items-center justify-end">
+            {institution.id === 'apex_national' ? (
+              <ApexLogo className="h-8" showText={true} />
+            ) : institution.id === 'chase_sim' ? (
+              <ChaseLogo className="h-7" showText={true} />
+            ) : institution.id === 'bofa_sim' ? (
+              <BofaLogo className="h-7" showText={true} />
+            ) : institution.id === 'wells_sim' ? (
+              <WellsFargoLogo className="h-7" showText={true} />
+            ) : institution.id === 'us_metro_bank' ? (
+              <UsMetroLogo className="h-8" showText={true} />
+            ) : (
+              <div className="flex items-center space-x-2">
+                <div 
+                  className="w-6 h-6 rounded flex items-center justify-center font-black text-white text-xs"
+                  style={{ backgroundColor: institution.accentColor }}
+                >
+                  {institution.logoText?.[0] || 'B'}
+                </div>
+                <span className="font-extrabold text-base tracking-wider text-slate-900 uppercase">
+                  {institution.name}
+                </span>
+              </div>
+            )}
           </div>
           <p className="text-[11px] text-slate-600 font-mono">{institution.address}</p>
           <p className="text-[11px] text-slate-600">Customer Support: <strong>{institution.customerServicePhone}</strong></p>
