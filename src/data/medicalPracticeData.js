@@ -19,7 +19,7 @@ export const MEDICAL_PRACTICE_DATA = {
       endDate: '2026-06-30'
     },
     startBalance: 238450.18,
-    endBalance: 388752.63,
+    endBalance: 238364.63,
     deposits: [
       { id: 'm1-c1', date: '2026-06-04', description: 'FDMS / CLOVER SETTLEMENT BATCH 0892 4891028302 CCD', amount: 14890.00, category: 'credit' },
       { id: 'm1-c2', date: '2026-06-11', description: 'FDMS / CLOVER SETTLEMENT BATCH 0899 4891028302 CCD', amount: 15310.80, category: 'credit' },
@@ -42,7 +42,8 @@ export const MEDICAL_PRACTICE_DATA = {
       { id: 'm1-d2', date: '2026-06-02', description: 'THE DOCTORS COMPANY MALPRACTICE INS POLICY #491028-CA', amount: -3450.00, category: 'debit' },
       { id: 'm1-d3', date: '2026-06-08', description: 'ALLERGAN USA INC PHARMACEUTICALS & AESTHETICS INV# 88219', amount: -7840.25, category: 'debit' },
       { id: 'm1-d4', date: '2026-06-15', description: 'BEVERLY HILLS SURGICENTER AMBULATORY FACILITY FEE', amount: -5200.00, category: 'debit' },
-      { id: 'm1-d5', date: '2026-06-23', description: 'MEDLINE INDUSTRIES INC SURGICAL DRAPES & PPE INV# 49201', amount: -1640.75, category: 'debit' }
+      { id: 'm1-d5', date: '2026-06-23', description: 'MEDLINE INDUSTRIES INC SURGICAL DRAPES & PPE INV# 49201', amount: -1640.75, category: 'debit' },
+      { id: 'm1-d6', date: '2026-06-25', description: 'ONLINE BANKING TRANSFER TO CHK ...4946 CONFIRMATION# 7819024165', amount: -150000.00, category: 'debit' }
     ],
     otherDebits: [
       { id: 'm1-od1', date: '2026-06-09', description: 'MCKESSON MEDICAL-SURGICAL SUPPLY ACH DEBIT INV# 40192', amount: -3180.50, category: 'otherDebit' },
@@ -57,8 +58,8 @@ export const MEDICAL_PRACTICE_DATA = {
       startDate: '2026-07-01',
       endDate: '2026-07-31'
     },
-    startBalance: 388752.63,
-    endBalance: 523602.70,
+    startBalance: 238364.63,
+    endBalance: 223214.70,
     deposits: [
       { id: 'm2-c1', date: '2026-07-06', description: 'FDMS / CLOVER SETTLEMENT BATCH 0921 4891028302 CCD', amount: 15420.50, category: 'credit' },
       { id: 'm2-c2', date: '2026-07-13', description: 'FDMS / CLOVER SETTLEMENT BATCH 0928 4891028302 CCD', amount: 16280.00, category: 'credit' },
@@ -85,7 +86,8 @@ export const MEDICAL_PRACTICE_DATA = {
       { id: 'm2-d6', date: '2026-07-15', description: 'CEDARS-SINAI SURGICAL PATHOLOGY REFERENCE LAB SVCS', amount: -1840.00, category: 'debit' },
       { id: 'm2-d7', date: '2026-07-20', description: 'BEVERLY HILLS SURGICENTER OR SUITE OVERTIME CHARGES', amount: -2400.00, category: 'debit' },
       { id: 'm2-d8', date: '2026-07-23', description: 'MEDLINE INDUSTRIES INC SURGICAL DRAPES & PPE INV# 49388', amount: -1420.50, category: 'debit' },
-      { id: 'm2-d9', date: '2026-07-27', description: 'MERZ NORTH AMERICA RADIESSE / XEOMIN DIRECT SHIP', amount: -3890.00, category: 'debit' }
+      { id: 'm2-d9', date: '2026-07-27', description: 'MERZ NORTH AMERICA RADIESSE / XEOMIN DIRECT SHIP', amount: -3890.00, category: 'debit' },
+      { id: 'm2-d10', date: '2026-07-28', description: 'ONLINE BANKING TRANSFER TO CHK ...4946 CONFIRMATION# 8642019430', amount: -150000.00, category: 'debit' }
     ],
     otherDebits: [
       { id: 'm2-od1', date: '2026-07-07', description: 'CANON FINANCIAL SERVICES MEDICAL LASER EQUIPMENT LEASE', amount: -1650.00, category: 'otherDebit' },
