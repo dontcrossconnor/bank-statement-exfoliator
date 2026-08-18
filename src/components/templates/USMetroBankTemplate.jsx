@@ -292,14 +292,11 @@ export default function USMetroBankTemplate({
                 </table>
               </div>
 
-              {/* Deposits Table (Primary POS Card Settlements) */}
+              {/* Deposits Table (Primary Credits) */}
               <div style={{ position: 'absolute', left: '56px', top: '830px', width: '708px' }}>
-                <div className="bg-[#f0f4f8] border-l-[4px] border-[#1e3a68] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
+                <div className="bg-[#f0f4f8] border-l-[4px] border-[#1e3a68] px-[8px] py-[2.5px] mb-[3px]">
                   <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#1e3a68]">
-                    Deposits &amp; Customer Credits
-                  </span>
-                  <span className="text-[9px] font-semibold text-[#1e3a68] uppercase tracking-normal">
-                    (Merchant Card Settlements)
+                    Deposits
                   </span>
                 </div>
                 <table className="w-full text-left text-[10px] border-collapse">
@@ -364,15 +361,12 @@ export default function USMetroBankTemplate({
                   </span>
                 </div>
 
-                {/* Other Credits (ACH Payouts, Patient Financing, Interest) */}
+                {/* Other Credits Table */}
                 {otherCredits.length > 0 && (
                   <div>
-                    <div className="bg-[#f0f4f8] border-l-[4px] border-[#1e3a68] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
+                    <div className="bg-[#f0f4f8] border-l-[4px] border-[#1e3a68] px-[8px] py-[2.5px] mb-[3px]">
                       <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#1e3a68]">
                         Other Credits
-                      </span>
-                      <span className="text-[9px] font-semibold text-[#1e3a68] uppercase tracking-normal">
-                        (ACH Payouts &amp; Electronic Deposits)
                       </span>
                     </div>
                     <table className="w-full text-left text-[9px] border-collapse">
@@ -399,15 +393,12 @@ export default function USMetroBankTemplate({
                   </div>
                 )}
 
-                {/* Primary Debits (Lease, Malpractice, Direct Vendors) */}
+                {/* Primary Debits Table */}
                 {debits.length > 0 && (
                   <div>
-                    <div className="bg-[#fcf0f0] border-l-[4px] border-[#9b1c1c] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
+                    <div className="bg-[#fcf0f0] border-l-[4px] border-[#9b1c1c] px-[8px] py-[2.5px] mb-[3px]">
                       <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#9b1c1c]">
-                        Debits &amp; Withdrawals
-                      </span>
-                      <span className="text-[9px] font-semibold text-[#9b1c1c] uppercase tracking-normal">
-                        (Electronic Transfers &amp; Direct Disbursements)
+                        Debits
                       </span>
                     </div>
                     <table className="w-full text-left text-[9px] border-collapse">
@@ -434,15 +425,12 @@ export default function USMetroBankTemplate({
                   </div>
                 )}
 
-                {/* Other Debits (SaaS, Biohazard Waste, Lab Services, Utilities) */}
+                {/* Other Debits Table */}
                 {otherDebits.length > 0 && (
                   <div>
-                    <div className="bg-[#fcf0f0] border-l-[4px] border-[#9b1c1c] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
+                    <div className="bg-[#fcf0f0] border-l-[4px] border-[#9b1c1c] px-[8px] py-[2.5px] mb-[3px]">
                       <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#9b1c1c]">
                         Other Debits
-                      </span>
-                      <span className="text-[9px] font-semibold text-[#9b1c1c] uppercase tracking-normal">
-                        (Recurring Vendor &amp; Utility Debits)
                       </span>
                     </div>
                     <table className="w-full text-left text-[9px] border-collapse">
