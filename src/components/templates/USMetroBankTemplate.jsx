@@ -353,7 +353,7 @@ export default function USMetroBankTemplate({
               {/* Account Title Continuation Bar */}
               <div
                 style={{ position: 'absolute', left: '56px', top: '78px', width: '708px' }}
-                className="pb-[3px] border-b-[2.5px] border-[#1e3a68]"
+                className="pb-[4px] border-b-[2.5px] border-[#1e3a68]"
               >
                 <span className="font-bold text-[15px] uppercase tracking-normal text-[#1e3a68]">
                   {account.type || 'ANALYZED BUSINESS CHECKING'} - {account.accountNumber || 'XXXXXX8501'} <span className="font-bold text-[13px] text-[#1e3a68] lowercase">(continued)</span>
@@ -362,8 +362,8 @@ export default function USMetroBankTemplate({
 
               {/* Other Credits (ACH Payouts, Patient Financing, Interest) */}
               {otherCredits.length > 0 && (
-                <div style={{ position: 'absolute', left: '56px', top: '104px', width: '708px' }}>
-                  <div className="text-[11.5px] font-bold text-[#111111] mb-[2px]">
+                <div style={{ position: 'absolute', left: '56px', top: '116px', width: '708px' }}>
+                  <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
                     Other Credits
                   </div>
                   <table className="w-full text-left text-[9.5px] border-collapse">
@@ -392,8 +392,8 @@ export default function USMetroBankTemplate({
 
               {/* Primary Debits (Lease, Malpractice, Direct Vendors) */}
               {debits.length > 0 && (
-                <div style={{ position: 'absolute', left: '56px', top: '290px', width: '708px' }}>
-                  <div className="text-[11.5px] font-bold text-[#111111] mb-[2px]">
+                <div style={{ position: 'absolute', left: '56px', top: '298px', width: '708px' }}>
+                  <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
                     Debits
                   </div>
                   <table className="w-full text-left text-[9.5px] border-collapse">
@@ -422,8 +422,8 @@ export default function USMetroBankTemplate({
 
               {/* Other Debits (SaaS, Biohazard Waste, Lab Services, Utilities) */}
               {otherDebits.length > 0 && (
-                <div style={{ position: 'absolute', left: '56px', top: '425px', width: '708px' }}>
-                  <div className="text-[11.5px] font-bold text-[#111111] mb-[2px]">
+                <div style={{ position: 'absolute', left: '56px', top: '430px', width: '708px' }}>
+                  <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
                     Other Debits
                   </div>
                   <table className="w-full text-left text-[9.5px] border-collapse">
@@ -451,8 +451,8 @@ export default function USMetroBankTemplate({
               )}
 
               {/* Daily Balances Section */}
-              <div style={{ position: 'absolute', left: '56px', top: '560px', width: '335px' }}>
-                <div className="text-[11.5px] font-bold text-[#111111] mb-[2px]">
+              <div style={{ position: 'absolute', left: '56px', top: '562px', width: '335px' }}>
+                <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
                   Daily Balances
                 </div>
                 <table className="w-full text-left text-[9.5px] border-collapse">
