@@ -350,160 +350,163 @@ export default function USMetroBankTemplate({
               {/* Top Header Divider Line */}
               <div style={{ position: 'absolute', left: '56px', top: '64px', width: '708px', height: '2px', backgroundColor: '#111111' }}></div>
 
-              {/* Account Title Continuation Bar */}
-              <div
-                style={{ position: 'absolute', left: '56px', top: '78px', width: '708px' }}
-                className="pb-[4px] border-b-[2.5px] border-[#1e3a68]"
-              >
-                <span className="font-bold text-[15px] uppercase tracking-normal text-[#1e3a68]">
-                  {account.type || 'ANALYZED BUSINESS CHECKING'} - {account.accountNumber || 'XXXXXX8501'} <span className="font-bold text-[13px] text-[#1e3a68] lowercase">(continued)</span>
-                </span>
-              </div>
+              {/* Page 2 Content Container */}
+              <div style={{ position: 'absolute', left: '56px', top: '78px', width: '708px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {/* Account Title Continuation Bar */}
+                <div className="pb-[3px] border-b-[2.5px] border-[#1e3a68]">
+                  <span className="font-bold text-[14.5px] uppercase tracking-normal text-[#1e3a68]">
+                    {account.type || 'ANALYZED BUSINESS CHECKING'} - {account.accountNumber || 'XXXXXX8501'} <span className="font-bold text-[12.5px] text-[#1e3a68] lowercase">(continued)</span>
+                  </span>
+                </div>
 
-              {/* Other Credits (ACH Payouts, Patient Financing, Interest) */}
-              {otherCredits.length > 0 && (
-                <div style={{ position: 'absolute', left: '56px', top: '116px', width: '708px' }}>
-                  <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
-                    Other Credits
-                  </div>
-                  <table className="w-full text-left text-[9.5px] border-collapse">
-                    <thead>
-                      <tr className="border-b border-[#111111] text-[#111111] font-bold">
-                        <th className="py-[1px] w-[95px] font-bold">Date</th>
-                        <th className="py-[1px] font-bold">Description</th>
-                        <th className="py-[1px] text-right w-[120px] font-bold">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {otherCredits.map((tx, idx) => (
-                        <tr key={idx} className="font-medium text-[#111111]">
-                          <td className="py-[1px] font-bold">{formatMDY(tx.date)}</td>
-                          <td className="py-[1px] uppercase truncate max-w-[450px]">{tx.description}</td>
-                          <td className="py-[1px] text-right font-bold">${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                {/* Other Credits (ACH Payouts, Patient Financing, Interest) */}
+                {otherCredits.length > 0 && (
+                  <div>
+                    <div className="text-[11px] font-bold text-[#111111] mb-[2px]">
+                      Other Credits
+                    </div>
+                    <table className="w-full text-left text-[9px] border-collapse">
+                      <thead>
+                        <tr className="border-b border-[#111111] text-[#111111] font-bold">
+                          <th className="py-[1px] w-[95px] font-bold">Date</th>
+                          <th className="py-[1px] font-bold">Description</th>
+                          <th className="py-[1px] text-right w-[120px] font-bold">Amount</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="text-right text-[9.5px] text-[#111111] font-medium border-t border-[#111111] pt-[1px]">
-                    {otherCredits.length} item(s) totaling ${otherCredits.reduce((a, t) => a + Math.abs(t.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </thead>
+                      <tbody>
+                        {otherCredits.map((tx, idx) => (
+                          <tr key={idx} className="font-medium text-[#111111]">
+                            <td className="py-[0.5px] font-bold">{formatMDY(tx.date)}</td>
+                            <td className="py-[0.5px] uppercase truncate max-w-[450px]">{tx.description}</td>
+                            <td className="py-[0.5px] text-right font-bold">${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="text-right text-[9px] text-[#111111] font-medium border-t border-[#111111] pt-[1px]">
+                      {otherCredits.length} item(s) totaling ${otherCredits.reduce((a, t) => a + Math.abs(t.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Primary Debits (Lease, Malpractice, Direct Vendors) */}
-              {debits.length > 0 && (
-                <div style={{ position: 'absolute', left: '56px', top: '298px', width: '708px' }}>
-                  <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
-                    Debits
-                  </div>
-                  <table className="w-full text-left text-[9.5px] border-collapse">
-                    <thead>
-                      <tr className="border-b border-[#111111] text-[#111111] font-bold">
-                        <th className="py-[1px] w-[95px] font-bold">Date</th>
-                        <th className="py-[1px] font-bold">Description</th>
-                        <th className="py-[1px] text-right w-[120px] font-bold">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {debits.map((tx, idx) => (
-                        <tr key={idx} className="font-medium text-[#111111]">
-                          <td className="py-[1px] font-bold">{formatMDY(tx.date)}</td>
-                          <td className="py-[1px] uppercase truncate max-w-[450px]">{tx.description}</td>
-                          <td className="py-[1px] text-right font-bold">${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                {/* Primary Debits (Lease, Malpractice, Direct Vendors) */}
+                {debits.length > 0 && (
+                  <div>
+                    <div className="text-[11px] font-bold text-[#111111] mb-[2px]">
+                      Debits
+                    </div>
+                    <table className="w-full text-left text-[9px] border-collapse">
+                      <thead>
+                        <tr className="border-b border-[#111111] text-[#111111] font-bold">
+                          <th className="py-[1px] w-[95px] font-bold">Date</th>
+                          <th className="py-[1px] font-bold">Description</th>
+                          <th className="py-[1px] text-right w-[120px] font-bold">Amount</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="text-right text-[9.5px] text-[#111111] font-medium border-t border-[#111111] pt-[1px]">
-                    {debits.length} item(s) totaling ${debits.reduce((a, t) => a + Math.abs(t.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </thead>
+                      <tbody>
+                        {debits.map((tx, idx) => (
+                          <tr key={idx} className="font-medium text-[#111111]">
+                            <td className="py-[0.5px] font-bold">{formatMDY(tx.date)}</td>
+                            <td className="py-[0.5px] uppercase truncate max-w-[450px]">{tx.description}</td>
+                            <td className="py-[0.5px] text-right font-bold">${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="text-right text-[9px] text-[#111111] font-medium border-t border-[#111111] pt-[1px]">
+                      {debits.length} item(s) totaling ${debits.reduce((a, t) => a + Math.abs(t.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Other Debits (SaaS, Biohazard Waste, Lab Services, Utilities) */}
-              {otherDebits.length > 0 && (
-                <div style={{ position: 'absolute', left: '56px', top: '430px', width: '708px' }}>
-                  <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
-                    Other Debits
-                  </div>
-                  <table className="w-full text-left text-[9.5px] border-collapse">
-                    <thead>
-                      <tr className="border-b border-[#111111] text-[#111111] font-bold">
-                        <th className="py-[1px] w-[95px] font-bold">Date</th>
-                        <th className="py-[1px] font-bold">Description</th>
-                        <th className="py-[1px] text-right w-[120px] font-bold">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {otherDebits.map((tx, idx) => (
-                        <tr key={idx} className="font-medium text-[#111111]">
-                          <td className="py-[1px] font-bold">{formatMDY(tx.date)}</td>
-                          <td className="py-[1px] uppercase truncate max-w-[450px]">{tx.description}</td>
-                          <td className="py-[1px] text-right font-bold">${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                {/* Other Debits (SaaS, Biohazard Waste, Lab Services, Utilities) */}
+                {otherDebits.length > 0 && (
+                  <div>
+                    <div className="text-[11px] font-bold text-[#111111] mb-[2px]">
+                      Other Debits
+                    </div>
+                    <table className="w-full text-left text-[9px] border-collapse">
+                      <thead>
+                        <tr className="border-b border-[#111111] text-[#111111] font-bold">
+                          <th className="py-[1px] w-[95px] font-bold">Date</th>
+                          <th className="py-[1px] font-bold">Description</th>
+                          <th className="py-[1px] text-right w-[120px] font-bold">Amount</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="text-right text-[9.5px] text-[#111111] font-medium border-t border-[#111111] pt-[1px]">
-                    {otherDebits.length} item(s) totaling ${otherDebits.reduce((a, t) => a + Math.abs(t.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </thead>
+                      <tbody>
+                        {otherDebits.map((tx, idx) => (
+                          <tr key={idx} className="font-medium text-[#111111]">
+                            <td className="py-[0.5px] font-bold">{formatMDY(tx.date)}</td>
+                            <td className="py-[0.5px] uppercase truncate max-w-[450px]">{tx.description}</td>
+                            <td className="py-[0.5px] text-right font-bold">${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="text-right text-[9px] text-[#111111] font-medium border-t border-[#111111] pt-[1px]">
+                      {otherDebits.length} item(s) totaling ${otherDebits.reduce((a, t) => a + Math.abs(t.amount), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Bottom Row: Daily Balances + Overdraft and Returned Item Fees */}
+                <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', marginTop: '2px' }}>
+                  {/* Daily Balances Section */}
+                  <div style={{ width: '310px', flexShrink: 0 }}>
+                    <div className="text-[11px] font-bold text-[#111111] mb-[2px]">
+                      Daily Balances
+                    </div>
+                    <table className="w-full text-left text-[8.5px] border-collapse">
+                      <thead>
+                        <tr className="border-b border-[#111111] text-[#111111] font-bold">
+                          <th className="py-[1px] w-[110px] font-bold">Date</th>
+                          <th className="py-[1px] text-right font-bold">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {dailyEntries.slice(0, 8).map(([d, b], idx) => (
+                          <tr key={idx} className="font-medium text-[#111111]">
+                            <td className="py-[0.5px] font-bold">{formatMDY(d)}</td>
+                            <td className="py-[0.5px] text-right font-bold">${Number(b).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Overdraft and Returned Item Fees Framed Grid */}
+                  <div style={{ flex: 1 }}>
+                    <div className="text-[11px] font-bold text-[#111111] mb-[2px]">
+                      Overdraft and Returned Item Fees
+                    </div>
+                    <table className="w-full border-[1.8px] border-[#1e3a68] text-left text-[9.5px] border-collapse">
+                      <thead>
+                        <tr className="border-b-[1.8px] border-[#1e3a68] bg-white font-bold text-[#111111]">
+                          <th className="py-[2px] px-[6px] border-r-[1.8px] border-[#1e3a68]"></th>
+                          <th className="py-[2px] px-[6px] text-center border-r-[1.8px] border-[#1e3a68] w-[110px] font-bold">This period</th>
+                          <th className="py-[2px] px-[6px] text-center w-[110px] font-bold">Year-to-date</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y-[1.8px] divide-[#1e3a68]">
+                        <tr>
+                          <td className="py-[2px] px-[6px] border-r-[1.8px] border-[#1e3a68] font-bold text-[#111111]">Total Overdraft Fees</td>
+                          <td className="py-[2px] px-[6px] text-right border-r-[1.8px] border-[#1e3a68] font-bold text-[#111111] pr-2">$0.00</td>
+                          <td className="py-[2px] px-[6px] text-right font-bold text-[#111111] pr-2">$0.00</td>
+                        </tr>
+                        <tr>
+                          <td className="py-[2px] px-[6px] border-r-[1.8px] border-[#1e3a68] font-bold text-[#111111]">Total Returned Item Fees</td>
+                          <td className="py-[2px] px-[6px] text-right border-r-[1.8px] border-[#1e3a68] font-bold text-[#111111] pr-2">$0.00</td>
+                          <td className="py-[2px] px-[6px] text-right font-bold text-[#111111] pr-2">$0.00</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              )}
-
-              {/* Daily Balances Section */}
-              <div style={{ position: 'absolute', left: '56px', top: '562px', width: '335px' }}>
-                <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
-                  Daily Balances
-                </div>
-                <table className="w-full text-left text-[9.5px] border-collapse">
-                  <thead>
-                    <tr className="border-b border-[#111111] text-[#111111] font-bold">
-                      <th className="py-[1.5px] w-[130px] font-bold">Date</th>
-                      <th className="py-[1.5px] text-right font-bold">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {dailyEntries.slice(0, 10).map(([d, b], idx) => (
-                      <tr key={idx} className="font-medium text-[#111111]">
-                        <td className="py-[1px] font-bold">{formatMDY(d)}</td>
-                        <td className="py-[1px] text-right font-bold">${Number(b).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* Overdraft and Returned Item Fees Framed Grid */}
-              <div style={{ position: 'absolute', left: '56px', top: '780px', width: '708px' }}>
-                <div className="text-[11.5px] font-bold text-[#111111] mb-[3px]">
-                  Overdraft and Returned Item Fees
-                </div>
-                <table className="w-full border-[1.8px] border-[#1e3a68] text-left text-[10.5px] border-collapse">
-                  <thead>
-                    <tr className="border-b-[1.8px] border-[#1e3a68] bg-white font-bold text-[#111111]">
-                      <th className="py-[3px] px-[8px] border-r-[1.8px] border-[#1e3a68]"></th>
-                      <th className="py-[3px] px-[8px] text-center border-r-[1.8px] border-[#1e3a68] w-[200px] font-bold">Total for this period</th>
-                      <th className="py-[3px] px-[8px] text-center w-[200px] font-bold">Total year-to-date</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y-[1.8px] divide-[#1e3a68]">
-                    <tr>
-                      <td className="py-[3px] px-[8px] border-r-[1.8px] border-[#1e3a68] font-bold text-[#111111]">Total Overdraft Fees</td>
-                      <td className="py-[3px] px-[8px] text-right border-r-[1.8px] border-[#1e3a68] font-bold text-[#111111] pr-4">$0.00</td>
-                      <td className="py-[3px] px-[8px] text-right font-bold text-[#111111] pr-4">$0.00</td>
-                    </tr>
-                    <tr>
-                      <td className="py-[3px] px-[8px] border-r-[1.8px] border-[#1e3a68] font-bold text-[#111111]">Total Returned Item Fees</td>
-                      <td className="py-[3px] px-[8px] text-right border-r-[1.8px] border-[#1e3a68] font-bold text-[#111111] pr-4">$0.00</td>
-                      <td className="py-[3px] px-[8px] text-right font-bold text-[#111111] pr-4">$0.00</td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
 
               {/* 2D DataMatrix Tracking Barcode on Page 2 */}
-              <div style={{ position: 'absolute', left: '26px', top: '880px' }}>
-                <DataMatrix2DBarcode size={28} color="#111111" />
+              <div style={{ position: 'absolute', left: '26px', top: '920px' }}>
+                <DataMatrix2DBarcode size={26} color="#111111" />
               </div>
             </div>
 

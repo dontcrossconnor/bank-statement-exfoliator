@@ -20,7 +20,6 @@ export const MEDICAL_PRACTICE_DATA = {
     },
     startBalance: 238450.18,
     endBalance: 388752.63,
-    // Classified sections matching core-banking standards
     deposits: [
       { id: 'm1-c1', date: '2026-06-04', description: 'FDMS / CLOVER SETTLEMENT BATCH 0892 4891028302 CCD', amount: 14890.00, category: 'credit' },
       { id: 'm1-c2', date: '2026-06-11', description: 'FDMS / CLOVER SETTLEMENT BATCH 0899 4891028302 CCD', amount: 15310.80, category: 'credit' },
@@ -59,7 +58,7 @@ export const MEDICAL_PRACTICE_DATA = {
       endDate: '2026-07-31'
     },
     startBalance: 388752.63,
-    endBalance: 541707.70,
+    endBalance: 523602.70,
     deposits: [
       { id: 'm2-c1', date: '2026-07-06', description: 'FDMS / CLOVER SETTLEMENT BATCH 0921 4891028302 CCD', amount: 15420.50, category: 'credit' },
       { id: 'm2-c2', date: '2026-07-13', description: 'FDMS / CLOVER SETTLEMENT BATCH 0928 4891028302 CCD', amount: 16280.00, category: 'credit' },
@@ -80,16 +79,25 @@ export const MEDICAL_PRACTICE_DATA = {
     debits: [
       { id: 'm2-d1', date: '2026-07-01', description: 'WILSHIRE PROPERTIES LLC COMMERCIAL LEASE PMT TR# 98390', amount: -11500.00, category: 'debit' },
       { id: 'm2-d2', date: '2026-07-02', description: 'THE DOCTORS COMPANY MALPRACTICE INS POLICY #491028-CA', amount: -3450.00, category: 'debit' },
-      { id: 'm2-d3', date: '2026-07-08', description: 'ALLERGAN USA INC PHARMACEUTICALS & AESTHETICS INV# 89044', amount: -8250.00, category: 'debit' },
-      { id: 'm2-d4', date: '2026-07-15', description: 'BEVERLY HILLS SURGICENTER AMBULATORY FACILITY FEE', amount: -4800.00, category: 'debit' },
-      { id: 'm2-d5', date: '2026-07-23', description: 'MEDLINE INDUSTRIES INC SURGICAL DRAPES & PPE INV# 49388', amount: -1420.50, category: 'debit' }
+      { id: 'm2-d3', date: '2026-07-06', description: 'BEVERLY HILLS SURGICENTER AMBULATORY FACILITY FEE', amount: -4800.00, category: 'debit' },
+      { id: 'm2-d4', date: '2026-07-08', description: 'ALLERGAN USA INC PHARMACEUTICALS & AESTHETICS INV# 89044', amount: -8250.00, category: 'debit' },
+      { id: 'm2-d5', date: '2026-07-13', description: 'GALDERMA LABORATORIES RESTYLANE / DYSPORT ORDER 77210', amount: -4620.00, category: 'debit' },
+      { id: 'm2-d6', date: '2026-07-15', description: 'CEDARS-SINAI SURGICAL PATHOLOGY REFERENCE LAB SVCS', amount: -1840.00, category: 'debit' },
+      { id: 'm2-d7', date: '2026-07-20', description: 'BEVERLY HILLS SURGICENTER OR SUITE OVERTIME CHARGES', amount: -2400.00, category: 'debit' },
+      { id: 'm2-d8', date: '2026-07-23', description: 'MEDLINE INDUSTRIES INC SURGICAL DRAPES & PPE INV# 49388', amount: -1420.50, category: 'debit' },
+      { id: 'm2-d9', date: '2026-07-27', description: 'MERZ NORTH AMERICA RADIESSE / XEOMIN DIRECT SHIP', amount: -3890.00, category: 'debit' }
     ],
     otherDebits: [
-      { id: 'm2-od1', date: '2026-07-09', description: 'HENRY SCHEIN MEDICAL CLINICAL INSTRUMENTS & RX INV# 33910', amount: -2890.40, category: 'otherDebit' },
-      { id: 'm2-od2', date: '2026-07-16', description: 'NEXTECH SYSTEMS EMR EHR SOFTWARE SUBSCRIPTION', amount: -1250.00, category: 'otherDebit' },
-      { id: 'm2-od3', date: '2026-07-22', description: 'STERICYCLE INC MEDICAL BIOHAZARD REG DISPOSAL SVCS', amount: -485.00, category: 'otherDebit' },
-      { id: 'm2-od4', date: '2026-07-29', description: 'QUEST DIAGNOSTICS CLINICAL PATHOLOGY LAB SVCS', amount: -740.00, category: 'otherDebit' },
-      { id: 'm2-od5', date: '2026-07-30', description: 'SPECTRUM BUSINESS DEDICATED FIBER INTERNET PMT', amount: -320.00, category: 'otherDebit' }
+      { id: 'm2-od1', date: '2026-07-07', description: 'CANON FINANCIAL SERVICES MEDICAL LASER EQUIPMENT LEASE', amount: -1650.00, category: 'otherDebit' },
+      { id: 'm2-od2', date: '2026-07-09', description: 'HENRY SCHEIN MEDICAL CLINICAL INSTRUMENTS & RX INV# 33910', amount: -2890.40, category: 'otherDebit' },
+      { id: 'm2-od3', date: '2026-07-14', description: 'SHRED-IT / STERICYCLE HIPAA DOCUMENT & SHARPS DISPOSAL', amount: -485.00, category: 'otherDebit' },
+      { id: 'm2-od4', date: '2026-07-16', description: 'NEXTECH SYSTEMS EMR EHR SOFTWARE SUBSCRIPTION', amount: -1250.00, category: 'otherDebit' },
+      { id: 'm2-od5', date: '2026-07-21', description: 'BEVERLY HILLS ANESTHESIA ASSOCIATES MEDICAL GROUP', amount: -1950.00, category: 'otherDebit' },
+      { id: 'm2-od6', date: '2026-07-24', description: 'QUEST DIAGNOSTICS CLINICAL PATHOLOGY LAB SVCS', amount: -740.00, category: 'otherDebit' },
+      { id: 'm2-od7', date: '2026-07-28', description: 'DOCTOR.COM / PRESS GANEY REPUTATION & PATIENT PORTAL', amount: -650.00, category: 'otherDebit' },
+      { id: 'm2-od8', date: '2026-07-29', description: 'CINTAS MEDICAL SCRUBS & LINEN HYGIENE SERVICE', amount: -380.00, category: 'otherDebit' },
+      { id: 'm2-od9', date: '2026-07-30', description: 'SPECTRUM BUSINESS DEDICATED FIBER INTERNET PMT', amount: -320.00, category: 'otherDebit' },
+      { id: 'm2-od10', date: '2026-07-31', description: 'SOUTHERN CALIFORNIA EDISON COMMERCIAL UTILITY PMT', amount: -725.00, category: 'otherDebit' }
     ]
   }
 };
