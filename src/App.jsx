@@ -41,14 +41,19 @@ export default function App() {
   // Accounts State
   const [accounts, setAccounts] = useState([MEDICAL_PRACTICE_DATA.account]);
 
-  // Combined Multi-Month Statements Array (Month 1: June 2026, Month 2: July 2026)
+  // Combined Multi-Month Statements Array (Month 0: May 2026, Month 1: June 2026, Month 2: July 2026)
   const [multiMonthStatements, setMultiMonthStatements] = useState([
+    MEDICAL_PRACTICE_DATA.month0,
     MEDICAL_PRACTICE_DATA.month1,
     MEDICAL_PRACTICE_DATA.month2
   ]);
 
   // Transactions State (Combined for Analytics Panel)
   const [transactions, setTransactions] = useState([
+    ...MEDICAL_PRACTICE_DATA.month0.deposits,
+    ...MEDICAL_PRACTICE_DATA.month0.otherCredits,
+    ...MEDICAL_PRACTICE_DATA.month0.debits,
+    ...MEDICAL_PRACTICE_DATA.month0.otherDebits,
     ...MEDICAL_PRACTICE_DATA.month1.deposits,
     ...MEDICAL_PRACTICE_DATA.month1.otherCredits,
     ...MEDICAL_PRACTICE_DATA.month1.debits,

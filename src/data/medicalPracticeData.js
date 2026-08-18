@@ -9,9 +9,49 @@ export const MEDICAL_PRACTICE_DATA = {
     accountNumber: 'XXXXXX8501',
     fullAccountNumber: 'XXXXXX8501',
     type: 'ANALYZED BUSINESS CHECKING',
-    startingBalance: 238450.18,
+    startingBalance: 237134.00,
     apy: '1.75%',
     interestYtd: 4049.29
+  },
+  month0: {
+    statementMeta: {
+      startDate: '2026-05-01',
+      endDate: '2026-05-31'
+    },
+    startBalance: 237134.00,
+    endBalance: 238450.18,
+    deposits: [
+      { id: 'm0-c1', date: '2026-05-04', description: 'FDMS / CLOVER SETTLEMENT BATCH 0864 4891028302 CCD', amount: 14650.00, category: 'credit' },
+      { id: 'm0-c2', date: '2026-05-11', description: 'FDMS / CLOVER SETTLEMENT BATCH 0871 4891028302 CCD', amount: 15120.50, category: 'credit' },
+      { id: 'm0-c3', date: '2026-05-18', description: 'FDMS / CLOVER SETTLEMENT BATCH 0878 4891028302 CCD', amount: 15980.00, category: 'credit' },
+      { id: 'm0-c4', date: '2026-05-26', description: 'FDMS / CLOVER SETTLEMENT BATCH 0885 4891028302 CCD', amount: 15720.00, category: 'credit' }
+    ],
+    otherCredits: [
+      { id: 'm0-oc1', date: '2026-05-01', description: 'STRIPE TRANSFER / PAYOUT ST-98070A DES:PAYOUT ID:1800293411 CCD', amount: 16180.00, category: 'otherCredit' },
+      { id: 'm0-oc2', date: '2026-05-05', description: 'SYF/CARECREDIT DIR DEP SETTLE 47990 SYNCHRONY BANK PPD', amount: 12340.00, category: 'otherCredit' },
+      { id: 'm0-oc3', date: '2026-05-08', description: 'STRIPE TRANSFER / PAYOUT ST-98144B DES:PAYOUT ID:1800293411 CCD', amount: 18650.00, category: 'otherCredit' },
+      { id: 'm0-oc4', date: '2026-05-12', description: 'SYF/CARECREDIT DIR DEP SETTLE 48032 SYNCHRONY BANK PPD', amount: 11920.00, category: 'otherCredit' },
+      { id: 'm0-oc5', date: '2026-05-15', description: 'STRIPE TRANSFER / PAYOUT ST-98218C DES:PAYOUT ID:1800293411 CCD', amount: 17280.50, category: 'otherCredit' },
+      { id: 'm0-oc6', date: '2026-05-19', description: 'SYF/CARECREDIT DIR DEP SETTLE 48074 SYNCHRONY BANK PPD', amount: 13110.00, category: 'otherCredit' },
+      { id: 'm0-oc7', date: '2026-05-22', description: 'STRIPE TRANSFER / PAYOUT ST-98292D DES:PAYOUT ID:1800293411 CCD', amount: 18940.00, category: 'otherCredit' },
+      { id: 'm0-oc8', date: '2026-05-27', description: 'SYF/CARECREDIT DIR DEP SETTLE 48116 SYNCHRONY BANK PPD', amount: 14080.00, category: 'otherCredit' },
+      { id: 'm0-oc9', date: '2026-05-29', description: 'INTEREST CREDIT', amount: 345.18, category: 'otherCredit' }
+    ],
+    debits: [
+      { id: 'm0-d1', date: '2026-05-01', description: 'WILSHIRE PROPERTIES LLC COMMERCIAL LEASE PMT TR# 98038', amount: -11500.00, category: 'debit' },
+      { id: 'm0-d2', date: '2026-05-04', description: 'THE DOCTORS COMPANY MALPRACTICE INS POLICY #491028-CA', amount: -3450.00, category: 'debit' },
+      { id: 'm0-d3', date: '2026-05-08', description: 'ALLERGAN USA INC PHARMACEUTICALS & AESTHETICS INV# 87612', amount: -7420.00, category: 'debit' },
+      { id: 'm0-d4', date: '2026-05-15', description: 'BEVERLY HILLS SURGICENTER AMBULATORY FACILITY FEE', amount: -4600.00, category: 'debit' },
+      { id: 'm0-d5', date: '2026-05-22', description: 'MEDLINE INDUSTRIES INC SURGICAL DRAPES & PPE INV# 49055', amount: -1380.00, category: 'debit' },
+      { id: 'm0-d6', date: '2026-05-26', description: 'ONLINE BANKING TRANSFER TO CHK ...4946 CONFIRMATION# 6720194830', amount: -150000.00, category: 'debit' }
+    ],
+    otherDebits: [
+      { id: 'm0-od1', date: '2026-05-07', description: 'MCKESSON MEDICAL-SURGICAL SUPPLY ACH DEBIT INV# 39820', amount: -1840.00, category: 'otherDebit' },
+      { id: 'm0-od2', date: '2026-05-14', description: 'NEXTECH SYSTEMS EMR EHR SOFTWARE SUBSCRIPTION', amount: -1250.00, category: 'otherDebit' },
+      { id: 'm0-od3', date: '2026-05-20', description: 'STERICYCLE INC MEDICAL BIOHAZARD REG DISPOSAL SVCS', amount: -485.00, category: 'otherDebit' },
+      { id: 'm0-od4', date: '2026-05-28', description: 'QUEST DIAGNOSTICS CLINICAL PATHOLOGY LAB SVCS', amount: -440.00, category: 'otherDebit' },
+      { id: 'm0-od5', date: '2026-05-29', description: 'SOUTHERN CALIFORNIA EDISON COMMERCIAL UTILITY PMT', amount: -635.00, category: 'otherDebit' }
+    ]
   },
   month1: {
     statementMeta: {
