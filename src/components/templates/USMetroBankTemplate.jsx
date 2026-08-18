@@ -195,22 +195,22 @@ export default function USMetroBankTemplate({
 
               {/* Promotional Banner Box */}
               <div
-                style={{ position: 'absolute', left: '54px', top: '320px', width: '722px', height: '270px', display: 'flex', alignItems: 'center' }}
+                style={{ position: 'absolute', left: '54px', top: '315px', width: '722px', height: '250px', display: 'flex', alignItems: 'center' }}
               >
-                <div style={{ width: '195px', height: '260px', flexShrink: 0, overflow: 'hidden' }}>
+                <div style={{ width: '185px', height: '240px', flexShrink: 0, overflow: 'hidden' }}>
                   <img src={couplePhoto} alt="" className="w-full h-full object-cover" />
                 </div>
 
-                <div style={{ flex: 1, paddingLeft: '28px', paddingRight: '20px' }}>
-                  <div style={{ fontFamily: 'Georgia, serif' }} className="text-[26px] leading-[30px] text-[#111111] mb-[12px]">
+                <div style={{ flex: 1, paddingLeft: '24px', paddingRight: '16px' }}>
+                  <div style={{ fontFamily: 'Georgia, serif' }} className="text-[24px] leading-[28px] text-[#111111] mb-[10px]">
                     Introducing your <span className="font-bold">NEW</span><br />monthly statement
                   </div>
 
-                  <p style={{ fontFamily: 'Arial, Helvetica, sans-serif' }} className="text-[12px] leading-[17px] text-[#111111] font-medium mb-[16px]">
+                  <p style={{ fontFamily: 'Arial, Helvetica, sans-serif' }} className="text-[11.5px] leading-[16px] text-[#111111] font-medium mb-[12px]">
                     We are pleased to introduce a new look to your monthly statement from US Metro Bank. The new statement is designed to make it easier for you to review your accounts, whether you receive it by mail or via eStatement. Please visit our website to learn more about our online and mobile banking solutions.
                   </p>
 
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontFamily: 'Arial, Helvetica, sans-serif' }} className="text-[12px] text-[#111111] font-medium">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontFamily: 'Arial, Helvetica, sans-serif' }} className="text-[11.5px] text-[#111111] font-medium">
                     <div>
                       Visit us online at <span className="text-[#b83232] font-bold">{institution.website || 'www.usmetrobank.com'}</span><br />
                       or call <span className="text-[#b83232] font-bold">714-620-8888</span> to learn more.
@@ -221,12 +221,12 @@ export default function USMetroBankTemplate({
                   </div>
                 </div>
 
-                <div style={{ width: '8px', height: '255px', backgroundColor: '#1e293b', flexShrink: 0, borderRadius: '1px' }}></div>
+                <div style={{ width: '8px', height: '235px', backgroundColor: '#1e293b', flexShrink: 0, borderRadius: '1px' }}></div>
               </div>
 
               {/* Summary of Accounts Box */}
               <div
-                style={{ position: 'absolute', left: '56px', top: '614px', width: '708px', height: '82px', fontFamily: 'Arial, Helvetica, sans-serif' }}
+                style={{ position: 'absolute', left: '56px', top: '580px', width: '708px', height: '82px', fontFamily: 'Arial, Helvetica, sans-serif' }}
                 className="border-[1.8px] border-[#1e3a68] rounded-[16px] p-[10px] bg-white"
               >
                 <div className="text-[15px] font-bold italic text-[#1e3a68] mb-[4px]">
@@ -246,7 +246,7 @@ export default function USMetroBankTemplate({
 
               {/* Account Title Header Bar */}
               <div
-                style={{ position: 'absolute', left: '56px', top: '690px', width: '708px', fontFamily: 'Arial, Helvetica, sans-serif' }}
+                style={{ position: 'absolute', left: '56px', top: '680px', width: '708px', fontFamily: 'Arial, Helvetica, sans-serif' }}
                 className="pb-[2px] border-b-[2.5px] border-[#1e3a68]"
               >
                 <span className="font-bold text-[14.5px] uppercase tracking-normal text-[#1e3a68]">
@@ -255,7 +255,7 @@ export default function USMetroBankTemplate({
               </div>
 
               {/* Account Summary Section (Left Half Width) */}
-              <div style={{ position: 'absolute', left: '56px', top: '716px', width: '400px', fontFamily: 'Arial, Helvetica, sans-serif' }}>
+              <div style={{ position: 'absolute', left: '56px', top: '706px', width: '400px', fontFamily: 'Arial, Helvetica, sans-serif' }}>
                 <div className="text-[11.5px] font-bold text-[#111111] mb-[2px]">
                   Account Summary
                 </div>
@@ -293,7 +293,7 @@ export default function USMetroBankTemplate({
               </div>
 
               {/* Deposits Table (Primary POS Card Settlements) */}
-              <div style={{ position: 'absolute', left: '56px', top: '838px', width: '708px' }}>
+              <div style={{ position: 'absolute', left: '56px', top: '830px', width: '708px' }}>
                 <div className="bg-[#f0f4f8] border-l-[4px] border-[#1e3a68] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
                   <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#1e3a68]">
                     Deposits &amp; Customer Credits
