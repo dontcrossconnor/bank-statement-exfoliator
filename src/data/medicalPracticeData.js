@@ -9,7 +9,7 @@ export const MEDICAL_PRACTICE_DATA = {
     accountNumber: 'XXXXXX8501',
     fullAccountNumber: 'XXXXXX8501',
     type: 'ANALYZED BUSINESS CHECKING',
-    startingBalance: 237134.00,
+    startingBalance: 240500.00,
     apy: '1.75%',
     interestYtd: 4049.29
   },
@@ -18,24 +18,24 @@ export const MEDICAL_PRACTICE_DATA = {
       startDate: '2026-05-01',
       endDate: '2026-05-31'
     },
-    startBalance: 237134.00,
-    endBalance: 238450.18,
+    startBalance: 240500.00,
+    endBalance: 244454.65,
     deposits: [
-      { id: 'm0-c1', date: '2026-05-04', description: 'FDMS / CLOVER SETTLEMENT BATCH 0864 4891028302 CCD', amount: 14650.00, category: 'credit' },
-      { id: 'm0-c2', date: '2026-05-11', description: 'FDMS / CLOVER SETTLEMENT BATCH 0871 4891028302 CCD', amount: 15120.50, category: 'credit' },
-      { id: 'm0-c3', date: '2026-05-18', description: 'FDMS / CLOVER SETTLEMENT BATCH 0878 4891028302 CCD', amount: 15980.00, category: 'credit' },
-      { id: 'm0-c4', date: '2026-05-26', description: 'FDMS / CLOVER SETTLEMENT BATCH 0885 4891028302 CCD', amount: 15720.00, category: 'credit' }
+      { id: 'm0-c1', date: '2026-05-04', description: 'FDMS / CLOVER SETTLEMENT BATCH 0864 4891028302 CCD', amount: 11840.50, category: 'credit' },
+      { id: 'm0-c2', date: '2026-05-11', description: 'FDMS / CLOVER SETTLEMENT BATCH 0871 4891028302 CCD', amount: 18920.00, category: 'credit' },
+      { id: 'm0-c3', date: '2026-05-18', description: 'FDMS / CLOVER SETTLEMENT BATCH 0878 4891028302 CCD', amount: 13410.75, category: 'credit' },
+      { id: 'm0-c4', date: '2026-05-26', description: 'FDMS / CLOVER SETTLEMENT BATCH 0885 4891028302 CCD', amount: 17890.00, category: 'credit' }
     ],
     otherCredits: [
-      { id: 'm0-oc1', date: '2026-05-01', description: 'STRIPE TRANSFER / PAYOUT ST-98070A DES:PAYOUT ID:1800293411 CCD', amount: 16180.00, category: 'otherCredit' },
-      { id: 'm0-oc2', date: '2026-05-05', description: 'SYF/CARECREDIT DIR DEP SETTLE 47990 SYNCHRONY BANK PPD', amount: 12340.00, category: 'otherCredit' },
-      { id: 'm0-oc3', date: '2026-05-08', description: 'STRIPE TRANSFER / PAYOUT ST-98144B DES:PAYOUT ID:1800293411 CCD', amount: 18650.00, category: 'otherCredit' },
-      { id: 'm0-oc4', date: '2026-05-12', description: 'SYF/CARECREDIT DIR DEP SETTLE 48032 SYNCHRONY BANK PPD', amount: 11920.00, category: 'otherCredit' },
-      { id: 'm0-oc5', date: '2026-05-15', description: 'STRIPE TRANSFER / PAYOUT ST-98218C DES:PAYOUT ID:1800293411 CCD', amount: 17280.50, category: 'otherCredit' },
-      { id: 'm0-oc6', date: '2026-05-19', description: 'SYF/CARECREDIT DIR DEP SETTLE 48074 SYNCHRONY BANK PPD', amount: 13110.00, category: 'otherCredit' },
-      { id: 'm0-oc7', date: '2026-05-22', description: 'STRIPE TRANSFER / PAYOUT ST-98292D DES:PAYOUT ID:1800293411 CCD', amount: 18940.00, category: 'otherCredit' },
-      { id: 'm0-oc8', date: '2026-05-27', description: 'SYF/CARECREDIT DIR DEP SETTLE 48116 SYNCHRONY BANK PPD', amount: 14080.00, category: 'otherCredit' },
-      { id: 'm0-oc9', date: '2026-05-29', description: 'INTEREST CREDIT', amount: 345.18, category: 'otherCredit' }
+      { id: 'm0-oc1', date: '2026-05-01', description: 'STRIPE TRANSFER / PAYOUT ST-98070A DES:PAYOUT ID:1800293411 CCD', amount: 14250.00, category: 'otherCredit' },
+      { id: 'm0-oc2', date: '2026-05-05', description: 'SYF/CARECREDIT DIR DEP SETTLE 47990 SYNCHRONY BANK PPD', amount: 9840.00, category: 'otherCredit' },
+      { id: 'm0-oc3', date: '2026-05-08', description: 'STRIPE TRANSFER / PAYOUT ST-98144B DES:PAYOUT ID:1800293411 CCD', amount: 21840.50, category: 'otherCredit' },
+      { id: 'm0-oc4', date: '2026-05-12', description: 'SYF/CARECREDIT DIR DEP SETTLE 48032 SYNCHRONY BANK PPD', amount: 15420.00, category: 'otherCredit' },
+      { id: 'm0-oc5', date: '2026-05-15', description: 'STRIPE TRANSFER / PAYOUT ST-98218C DES:PAYOUT ID:1800293411 CCD', amount: 15190.00, category: 'otherCredit' },
+      { id: 'm0-oc6', date: '2026-05-19', description: 'SYF/CARECREDIT DIR DEP SETTLE 48074 SYNCHRONY BANK PPD', amount: 10750.50, category: 'otherCredit' },
+      { id: 'm0-oc7', date: '2026-05-22', description: 'STRIPE TRANSFER / PAYOUT ST-98292D DES:PAYOUT ID:1800293411 CCD', amount: 20950.00, category: 'otherCredit' },
+      { id: 'm0-oc8', date: '2026-05-27', description: 'SYF/CARECREDIT DIR DEP SETTLE 48116 SYNCHRONY BANK PPD', amount: 16290.00, category: 'otherCredit' },
+      { id: 'm0-oc9', date: '2026-05-29', description: 'INTEREST CREDIT', amount: 362.40, category: 'otherCredit' }
     ],
     debits: [
       { id: 'm0-d1', date: '2026-05-01', description: 'WILSHIRE PROPERTIES LLC COMMERCIAL LEASE PMT TR# 98038', amount: -11500.00, category: 'debit' },
@@ -58,24 +58,24 @@ export const MEDICAL_PRACTICE_DATA = {
       startDate: '2026-06-01',
       endDate: '2026-06-30'
     },
-    startBalance: 238450.18,
-    endBalance: 221859.63,
+    startBalance: 244454.65,
+    endBalance: 232197.88,
     deposits: [
-      { id: 'm1-c1', date: '2026-06-04', description: 'FDMS / CLOVER SETTLEMENT BATCH 0892 4891028302 CCD', amount: 14890.00, category: 'credit' },
-      { id: 'm1-c2', date: '2026-06-11', description: 'FDMS / CLOVER SETTLEMENT BATCH 0899 4891028302 CCD', amount: 15310.80, category: 'credit' },
-      { id: 'm1-c3', date: '2026-06-18', description: 'FDMS / CLOVER SETTLEMENT BATCH 0907 4891028302 CCD', amount: 16110.00, category: 'credit' },
-      { id: 'm1-c4', date: '2026-06-25', description: 'FDMS / CLOVER SETTLEMENT BATCH 0914 4891028302 CCD', amount: 15840.00, category: 'credit' }
+      { id: 'm1-c1', date: '2026-06-04', description: 'FDMS / CLOVER SETTLEMENT BATCH 0892 4891028302 CCD', amount: 18450.00, category: 'credit' },
+      { id: 'm1-c2', date: '2026-06-11', description: 'FDMS / CLOVER SETTLEMENT BATCH 0899 4891028302 CCD', amount: 12610.80, category: 'credit' },
+      { id: 'm1-c3', date: '2026-06-18', description: 'FDMS / CLOVER SETTLEMENT BATCH 0907 4891028302 CCD', amount: 21340.00, category: 'credit' },
+      { id: 'm1-c4', date: '2026-06-25', description: 'FDMS / CLOVER SETTLEMENT BATCH 0914 4891028302 CCD', amount: 13890.50, category: 'credit' }
     ],
     otherCredits: [
-      { id: 'm1-oc1', date: '2026-06-03', description: 'STRIPE TRANSFER / PAYOUT ST-98214A DES:PAYOUT ID:1800293411 CCD', amount: 16240.50, category: 'otherCredit' },
-      { id: 'm1-oc2', date: '2026-06-05', description: 'SYF/CARECREDIT DIR DEP SETTLE 48102 SYNCHRONY BANK PPD', amount: 12450.00, category: 'otherCredit' },
-      { id: 'm1-oc3', date: '2026-06-10', description: 'STRIPE TRANSFER / PAYOUT ST-98288B DES:PAYOUT ID:1800293411 CCD', amount: 18920.00, category: 'otherCredit' },
-      { id: 'm1-oc4', date: '2026-06-12', description: 'SYF/CARECREDIT DIR DEP SETTLE 48155 SYNCHRONY BANK PPD', amount: 11780.00, category: 'otherCredit' },
-      { id: 'm1-oc5', date: '2026-06-17', description: 'STRIPE TRANSFER / PAYOUT ST-98361C DES:PAYOUT ID:1800293411 CCD', amount: 17450.25, category: 'otherCredit' },
-      { id: 'm1-oc6', date: '2026-06-19', description: 'SYF/CARECREDIT DIR DEP SETTLE 48210 SYNCHRONY BANK PPD', amount: 13290.50, category: 'otherCredit' },
-      { id: 'm1-oc7', date: '2026-06-24', description: 'STRIPE TRANSFER / PAYOUT ST-98440D DES:PAYOUT ID:1800293411 CCD', amount: 19150.00, category: 'otherCredit' },
-      { id: 'm1-oc8', date: '2026-06-26', description: 'SYF/CARECREDIT DIR DEP SETTLE 48278 SYNCHRONY BANK PPD', amount: 14210.00, category: 'otherCredit' },
-      { id: 'm1-oc9', date: '2026-06-30', description: 'INTEREST CREDIT', amount: 388.90, category: 'otherCredit' }
+      { id: 'm1-oc1', date: '2026-06-03', description: 'STRIPE TRANSFER / PAYOUT ST-98214A DES:PAYOUT ID:1800293411 CCD', amount: 22410.00, category: 'otherCredit' },
+      { id: 'm1-oc2', date: '2026-06-05', description: 'SYF/CARECREDIT DIR DEP SETTLE 48102 SYNCHRONY BANK PPD', amount: 15890.00, category: 'otherCredit' },
+      { id: 'm1-oc3', date: '2026-06-10', description: 'STRIPE TRANSFER / PAYOUT ST-98288B DES:PAYOUT ID:1800293411 CCD', amount: 13780.50, category: 'otherCredit' },
+      { id: 'm1-oc4', date: '2026-06-12', description: 'SYF/CARECREDIT DIR DEP SETTLE 48155 SYNCHRONY BANK PPD', amount: 8940.00, category: 'otherCredit' },
+      { id: 'm1-oc5', date: '2026-06-17', description: 'STRIPE TRANSFER / PAYOUT ST-98361C DES:PAYOUT ID:1800293411 CCD', amount: 19850.25, category: 'otherCredit' },
+      { id: 'm1-oc6', date: '2026-06-19', description: 'SYF/CARECREDIT DIR DEP SETTLE 48210 SYNCHRONY BANK PPD', amount: 16750.50, category: 'otherCredit' },
+      { id: 'm1-oc7', date: '2026-06-24', description: 'STRIPE TRANSFER / PAYOUT ST-98440D DES:PAYOUT ID:1800293411 CCD', amount: 14620.00, category: 'otherCredit' },
+      { id: 'm1-oc8', date: '2026-06-26', description: 'SYF/CARECREDIT DIR DEP SETTLE 48278 SYNCHRONY BANK PPD', amount: 11420.00, category: 'otherCredit' },
+      { id: 'm1-oc9', date: '2026-06-30', description: 'INTEREST CREDIT', amount: 412.18, category: 'otherCredit' }
     ],
     debits: [
       { id: 'm1-d1', date: '2026-06-01', description: 'WILSHIRE PROPERTIES LLC COMMERCIAL LEASE PMT TR# 98214', amount: -11500.00, category: 'debit' },
@@ -107,24 +107,24 @@ export const MEDICAL_PRACTICE_DATA = {
       startDate: '2026-07-01',
       endDate: '2026-07-31'
     },
-    startBalance: 221859.63,
-    endBalance: 206709.70,
+    startBalance: 232197.88,
+    endBalance: 225990.95,
     deposits: [
-      { id: 'm2-c1', date: '2026-07-06', description: 'FDMS / CLOVER SETTLEMENT BATCH 0921 4891028302 CCD', amount: 15420.50, category: 'credit' },
-      { id: 'm2-c2', date: '2026-07-13', description: 'FDMS / CLOVER SETTLEMENT BATCH 0928 4891028302 CCD', amount: 16280.00, category: 'credit' },
-      { id: 'm2-c3', date: '2026-07-20', description: 'FDMS / CLOVER SETTLEMENT BATCH 0935 4891028302 CCD', amount: 15750.80, category: 'credit' },
-      { id: 'm2-c4', date: '2026-07-27', description: 'FDMS / CLOVER SETTLEMENT BATCH 0942 4891028302 CCD', amount: 16330.00, category: 'credit' }
+      { id: 'm2-c1', date: '2026-07-06', description: 'FDMS / CLOVER SETTLEMENT BATCH 0921 4891028302 CCD', amount: 12940.00, category: 'credit' },
+      { id: 'm2-c2', date: '2026-07-13', description: 'FDMS / CLOVER SETTLEMENT BATCH 0928 4891028302 CCD', amount: 22850.50, category: 'credit' },
+      { id: 'm2-c3', date: '2026-07-20', description: 'FDMS / CLOVER SETTLEMENT BATCH 0935 4891028302 CCD', amount: 14120.00, category: 'credit' },
+      { id: 'm2-c4', date: '2026-07-27', description: 'FDMS / CLOVER SETTLEMENT BATCH 0942 4891028302 CCD', amount: 19480.80, category: 'credit' }
     ],
     otherCredits: [
-      { id: 'm2-oc1', date: '2026-07-03', description: 'STRIPE TRANSFER / PAYOUT ST-98512A DES:PAYOUT ID:1800293411 CCD', amount: 17110.00, category: 'otherCredit' },
-      { id: 'm2-oc2', date: '2026-07-07', description: 'SYF/CARECREDIT DIR DEP SETTLE 48330 SYNCHRONY BANK PPD', amount: 13150.00, category: 'otherCredit' },
-      { id: 'm2-oc3', date: '2026-07-10', description: 'STRIPE TRANSFER / PAYOUT ST-98589B DES:PAYOUT ID:1800293411 CCD', amount: 18340.25, category: 'otherCredit' },
-      { id: 'm2-oc4', date: '2026-07-14', description: 'SYF/CARECREDIT DIR DEP SETTLE 48398 SYNCHRONY BANK PPD', amount: 12890.00, category: 'otherCredit' },
-      { id: 'm2-oc5', date: '2026-07-17', description: 'STRIPE TRANSFER / PAYOUT ST-98664C DES:PAYOUT ID:1800293411 CCD', amount: 16920.00, category: 'otherCredit' },
-      { id: 'm2-oc6', date: '2026-07-21', description: 'SYF/CARECREDIT DIR DEP SETTLE 48462 SYNCHRONY BANK PPD', amount: 11940.00, category: 'otherCredit' },
-      { id: 'm2-oc7', date: '2026-07-24', description: 'STRIPE TRANSFER / PAYOUT ST-98741D DES:PAYOUT ID:1800293411 CCD', amount: 19450.00, category: 'otherCredit' },
-      { id: 'm2-oc8', date: '2026-07-28', description: 'SYF/CARECREDIT DIR DEP SETTLE 48530 SYNCHRONY BANK PPD', amount: 13850.00, category: 'otherCredit' },
-      { id: 'm2-oc9', date: '2026-07-31', description: 'INTEREST CREDIT', amount: 629.42, category: 'otherCredit' }
+      { id: 'm2-oc1', date: '2026-07-03', description: 'STRIPE TRANSFER / PAYOUT ST-98512A DES:PAYOUT ID:1800293411 CCD', amount: 13820.00, category: 'otherCredit' },
+      { id: 'm2-oc2', date: '2026-07-07', description: 'SYF/CARECREDIT DIR DEP SETTLE 48330 SYNCHRONY BANK PPD', amount: 8650.00, category: 'otherCredit' },
+      { id: 'm2-oc3', date: '2026-07-10', description: 'STRIPE TRANSFER / PAYOUT ST-98589B DES:PAYOUT ID:1800293411 CCD', amount: 24150.00, category: 'otherCredit' },
+      { id: 'm2-oc4', date: '2026-07-14', description: 'SYF/CARECREDIT DIR DEP SETTLE 48398 SYNCHRONY BANK PPD', amount: 17890.00, category: 'otherCredit' },
+      { id: 'm2-oc5', date: '2026-07-17', description: 'STRIPE TRANSFER / PAYOUT ST-98664C DES:PAYOUT ID:1800293411 CCD', amount: 14910.25, category: 'otherCredit' },
+      { id: 'm2-oc6', date: '2026-07-21', description: 'SYF/CARECREDIT DIR DEP SETTLE 48462 SYNCHRONY BANK PPD', amount: 9420.00, category: 'otherCredit' },
+      { id: 'm2-oc7', date: '2026-07-24', description: 'STRIPE TRANSFER / PAYOUT ST-98741D DES:PAYOUT ID:1800293411 CCD', amount: 21340.00, category: 'otherCredit' },
+      { id: 'm2-oc8', date: '2026-07-28', description: 'SYF/CARECREDIT DIR DEP SETTLE 48530 SYNCHRONY BANK PPD', amount: 16840.00, category: 'otherCredit' },
+      { id: 'm2-oc9', date: '2026-07-31', description: 'INTEREST CREDIT', amount: 592.42, category: 'otherCredit' }
     ],
     debits: [
       { id: 'm2-d1', date: '2026-07-01', description: 'WILSHIRE PROPERTIES LLC COMMERCIAL LEASE PMT TR# 98390', amount: -11500.00, category: 'debit' },

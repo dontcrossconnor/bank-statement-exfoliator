@@ -246,56 +246,61 @@ export default function USMetroBankTemplate({
 
               {/* Account Title Header Bar */}
               <div
-                style={{ position: 'absolute', left: '56px', top: '710px', width: '708px', fontFamily: 'Arial, Helvetica, sans-serif' }}
+                style={{ position: 'absolute', left: '56px', top: '690px', width: '708px', fontFamily: 'Arial, Helvetica, sans-serif' }}
                 className="pb-[2px] border-b-[2.5px] border-[#1e3a68]"
               >
-                <span className="font-bold text-[15px] uppercase tracking-normal text-[#1e3a68]">
+                <span className="font-bold text-[14.5px] uppercase tracking-normal text-[#1e3a68]">
                   {account.type || 'ANALYZED BUSINESS CHECKING'} - {account.accountNumber || 'XXXXXX8501'}
                 </span>
               </div>
 
               {/* Account Summary Section (Left Half Width) */}
-              <div style={{ position: 'absolute', left: '56px', top: '736px', width: '400px', fontFamily: 'Arial, Helvetica, sans-serif' }}>
-                <div className="text-[12px] font-bold text-[#111111] mb-[2px]">
+              <div style={{ position: 'absolute', left: '56px', top: '716px', width: '400px', fontFamily: 'Arial, Helvetica, sans-serif' }}>
+                <div className="text-[11.5px] font-bold text-[#111111] mb-[2px]">
                   Account Summary
                 </div>
-                <table className="w-full text-left text-[11px] border-collapse">
+                <table className="w-full text-left text-[10px] border-collapse">
                   <thead>
                     <tr className="border-b border-[#111111] text-[#111111] font-bold">
-                      <th className="py-[1.5px] w-[100px] font-bold">Date</th>
-                      <th className="py-[1.5px] font-bold">Description</th>
-                      <th className="py-[1.5px] text-right w-[110px] font-bold">Amount</th>
+                      <th className="py-[1px] w-[95px] font-bold">Date</th>
+                      <th className="py-[1px] font-bold">Description</th>
+                      <th className="py-[1px] text-right w-[110px] font-bold">Amount</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="font-medium text-[#111111]">
-                      <td className="py-[1.5px] font-bold">{formattedStartDate}</td>
-                      <td className="py-[1.5px]">Beginning Balance</td>
-                      <td className="py-[1.5px] text-right font-bold">${startingBal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                      <td className="py-[1px] font-bold">{formatMDY(stmt.statementMeta?.startDate || statementMeta.startDate)}</td>
+                      <td className="py-[1px]">Beginning Balance</td>
+                      <td className="py-[1px] text-right font-bold">${startingBal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     </tr>
                     <tr className="text-[#111111]">
-                      <td className="py-[1.5px]"></td>
-                      <td className="py-[1.5px]">{totalCreditsCount} Credit(s) This Period</td>
-                      <td className="py-[1.5px] text-right font-bold">${totalCredits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                      <td className="py-[1px]"></td>
+                      <td className="py-[1px]">{totalCreditsCount} Credit(s) This Period</td>
+                      <td className="py-[1px] text-right font-bold">${totalCredits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     </tr>
                     <tr className="text-[#111111]">
-                      <td className="py-[1.5px]"></td>
-                      <td className="py-[1.5px]">{totalDebitsCount} Debit(s) This Period</td>
-                      <td className="py-[1.5px] text-right font-bold">${totalDebits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                      <td className="py-[1px]"></td>
+                      <td className="py-[1px]">{totalDebitsCount} Debit(s) This Period</td>
+                      <td className="py-[1px] text-right font-bold">${totalDebits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     </tr>
                     <tr className="font-bold text-[#111111]">
-                      <td className="py-[1.5px]">{formattedEndDate}</td>
-                      <td className="py-[1.5px]">Ending Balance</td>
-                      <td className="py-[1.5px] text-right">${endingBal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                      <td className="py-[1px]">{formatMDY(stmt.statementMeta?.endDate || statementMeta.endDate)}</td>
+                      <td className="py-[1px]">Ending Balance</td>
+                      <td className="py-[1px] text-right">${endingBal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
-              {/* Transaction Detail: Deposits / Credits on Page 1 */}
-              <div style={{ position: 'absolute', left: '56px', top: '850px', width: '708px', fontFamily: 'Arial, Helvetica, sans-serif' }}>
-                <div className="text-[12px] font-bold text-[#111111] mb-[2px]">
-                  Deposits
+              {/* Deposits Table (Primary POS Card Settlements) */}
+              <div style={{ position: 'absolute', left: '56px', top: '838px', width: '708px' }}>
+                <div className="bg-[#f0f4f8] border-l-[4px] border-[#1e3a68] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
+                  <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#1e3a68]">
+                    Deposits &amp; Customer Credits
+                  </span>
+                  <span className="text-[9px] font-semibold text-[#1e3a68] uppercase tracking-normal">
+                    (Merchant Card Settlements)
+                  </span>
                 </div>
                 <table className="w-full text-left text-[10px] border-collapse">
                   <thead>
@@ -351,7 +356,7 @@ export default function USMetroBankTemplate({
               <div style={{ position: 'absolute', left: '56px', top: '64px', width: '708px', height: '2px', backgroundColor: '#111111' }}></div>
 
               {/* Page 2 Content Container */}
-              <div style={{ position: 'absolute', left: '56px', top: '78px', width: '708px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ position: 'absolute', left: '56px', top: '78px', width: '708px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {/* Account Title Continuation Bar */}
                 <div className="pb-[3px] border-b-[2.5px] border-[#1e3a68]">
                   <span className="font-bold text-[14.5px] uppercase tracking-normal text-[#1e3a68]">
@@ -362,8 +367,13 @@ export default function USMetroBankTemplate({
                 {/* Other Credits (ACH Payouts, Patient Financing, Interest) */}
                 {otherCredits.length > 0 && (
                   <div>
-                    <div className="text-[11px] font-bold text-[#111111] mb-[2px]">
-                      Other Credits
+                    <div className="bg-[#f0f4f8] border-l-[4px] border-[#1e3a68] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
+                      <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#1e3a68]">
+                        Other Credits
+                      </span>
+                      <span className="text-[9px] font-semibold text-[#1e3a68] uppercase tracking-normal">
+                        (ACH Payouts &amp; Electronic Deposits)
+                      </span>
                     </div>
                     <table className="w-full text-left text-[9px] border-collapse">
                       <thead>
@@ -392,8 +402,13 @@ export default function USMetroBankTemplate({
                 {/* Primary Debits (Lease, Malpractice, Direct Vendors) */}
                 {debits.length > 0 && (
                   <div>
-                    <div className="text-[11px] font-bold text-[#111111] mb-[2px]">
-                      Debits
+                    <div className="bg-[#fcf0f0] border-l-[4px] border-[#9b1c1c] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
+                      <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#9b1c1c]">
+                        Debits &amp; Withdrawals
+                      </span>
+                      <span className="text-[9px] font-semibold text-[#9b1c1c] uppercase tracking-normal">
+                        (Electronic Transfers &amp; Direct Disbursements)
+                      </span>
                     </div>
                     <table className="w-full text-left text-[9px] border-collapse">
                       <thead>
@@ -422,8 +437,13 @@ export default function USMetroBankTemplate({
                 {/* Other Debits (SaaS, Biohazard Waste, Lab Services, Utilities) */}
                 {otherDebits.length > 0 && (
                   <div>
-                    <div className="text-[11px] font-bold text-[#111111] mb-[2px]">
-                      Other Debits
+                    <div className="bg-[#fcf0f0] border-l-[4px] border-[#9b1c1c] px-[8px] py-[2.5px] mb-[3px] flex items-center justify-between">
+                      <span className="text-[11.5px] font-extrabold uppercase tracking-wider text-[#9b1c1c]">
+                        Other Debits
+                      </span>
+                      <span className="text-[9px] font-semibold text-[#9b1c1c] uppercase tracking-normal">
+                        (Recurring Vendor &amp; Utility Debits)
+                      </span>
                     </div>
                     <table className="w-full text-left text-[9px] border-collapse">
                       <thead>
