@@ -7,7 +7,8 @@ export default function StatementViewer({
   statementMeta,
   account,
   totals,
-  transactions
+  transactions,
+  statements
 }) {
   // Map institution ID to specific 1:1 design template layout
   const getTemplateId = () => {
@@ -32,6 +33,7 @@ export default function StatementViewer({
           account={account}
           totals={totals}
           transactions={transactions}
+          statements={statements}
         />
       </div>
     </div>

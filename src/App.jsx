@@ -5,6 +5,7 @@ import StatementViewer from './components/StatementViewer';
 import AnalyticsPanel from './components/AnalyticsPanel';
 import QuickstartModal from './components/QuickstartModal';
 import { INSTITUTIONS, PRESET_SCENARIOS } from './data/institutions';
+import { MEDICAL_PRACTICE_DATA } from './data/medicalPracticeData';
 import { generateSmartMultiMonthTransactions } from './utils/smartGenerator';
 import { calculateAccountTotals } from './utils/formatters';
 import { exportVectorizedPdf } from './utils/vectorPdfExporter';
@@ -18,23 +19,18 @@ export default function App() {
   const [institution, setInstitution] = useState(INSTITUTIONS.us_metro_bank);
 
   // Customer State
-  const [customerInfo, setCustomerInfo] = useState({
-    name: 'ONE WEST MEDICAL GROUP, INC.',
-    subName: 'GLENN MARSHAK',
-    address: '8920 WILSHIRE BLVD STE 301',
-    cityStateZip: 'BEVERLY HILLS CA 90211-3207'
-  });
+  const [customerInfo, setCustomerInfo] = useState(MEDICAL_PRACTICE_DATA.customerInfo);
 
   // Statement Metadata & Multi-Month Controls
   const [statementMeta, setStatementMeta] = useState({
-    startDate: '2026-07-01',
+    startDate: '2026-06-01',
     endDate: '2026-07-31'
   });
-  const [monthsCount, setMonthsCount] = useState('1');
+  const [monthsCount, setMonthsCount] = useState('2');
 
   // Balance Target Engine Inputs
-  const [startBalanceInput, setStartBalanceInput] = useState('389218.13');
-  const [endBalanceInput, setEndBalanceInput] = useState('389796.60');
+  const [startBalanceInput, setStartBalanceInput] = useState(String(MEDICAL_PRACTICE_DATA.account.startingBalance));
+  const [endBalanceInput, setEndBalanceInput] = useState(String(MEDICAL_PRACTICE_DATA.month2.endBalance));
 
   // Fixed Recurring Bills Rules
   const [recurringRules, setRecurringRules] = useState([]);
@@ -43,26 +39,24 @@ export default function App() {
   const [locales, setLocales] = useState(['Los Angeles, CA', 'Beverly Hills, CA']);
 
   // Accounts State
-  const [accounts, setAccounts] = useState([
-    {
-      accountNumber: 'XXXXXX8501',
-      fullAccountNumber: 'XXXXXX8501',
-      type: 'ANALYZED BUSINESS CHECKING',
-      startingBalance: 389218.13,
-      apy: '1.75%',
-      interestYtd: 4049.29
-    }
+  const [accounts, setAccounts] = useState([MEDICAL_PRACTICE_DATA.account]);
+
+  // Combined Multi-Month Statements Array (Month 1: June 2026, Month 2: July 2026)
+  const [multiMonthStatements, setMultiMonthStatements] = useState([
+    MEDICAL_PRACTICE_DATA.month1,
+    MEDICAL_PRACTICE_DATA.month2
   ]);
 
-  // Initial Transaction Load (Only Interest Credit, 0 Debits)
+  // Transactions State (Combined for Analytics Panel)
   const [transactions, setTransactions] = useState([
-    {
-      id: 'tx-1',
-      date: '2026-07-31',
-      description: 'INTEREST CREDIT',
-      amount: 578.47,
-      type: 'Interest'
-    }
+    ...MEDICAL_PRACTICE_DATA.month1.deposits,
+    ...MEDICAL_PRACTICE_DATA.month1.otherCredits,
+    ...MEDICAL_PRACTICE_DATA.month1.debits,
+    ...MEDICAL_PRACTICE_DATA.month1.otherDebits,
+    ...MEDICAL_PRACTICE_DATA.month2.deposits,
+    ...MEDICAL_PRACTICE_DATA.month2.otherCredits,
+    ...MEDICAL_PRACTICE_DATA.month2.debits,
+    ...MEDICAL_PRACTICE_DATA.month2.otherDebits
   ]);
 
   // Update End Date whenever start date or months change
@@ -119,24 +113,21 @@ export default function App() {
   };
 
   const handleExportPdf = () => {
-    const nameFormatted = customerInfo.name.replace(/[^a-zA-Z0-9]/g, '_');
-    exportVectorizedPdf(
-      institution,
-      customerInfo,
-      statementMeta,
-      accounts[0],
-      totals,
-      `${institution.shortName}_VectorStatement_${nameFormatted}.pdf`
-    );
+    const title = `${institution.name.replace(/\s+/g, '_')}_Statement_${statementMeta.startDate}_to_${statementMeta.endDate}.pdf`;
+    exportVectorizedPdf('printable-statement', title);
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500 selection:text-white">
+    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 font-sans">
       
-      {/* Quickstart Overlay Modal */}
+      {/* Quickstart Guided Modal */}
       <QuickstartModal
         isOpen={isQuickstartOpen}
         onClose={() => setIsQuickstartOpen(false)}
+        onApplyScenario={(scenarioId) => {
+          handleApplyPreset(scenarioId);
+          setIsQuickstartOpen(false);
+        }}
       />
 
       {/* Top Header */}
@@ -183,6 +174,7 @@ export default function App() {
           account={accounts[0]}
           totals={totals}
           transactions={transactions}
+          statements={multiMonthStatements}
         />
       </main>
 
