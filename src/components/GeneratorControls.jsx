@@ -97,6 +97,16 @@ export default function GeneratorControls({
         {/* Navigation Tabs */}
         <div className="flex items-center space-x-1 border-b border-slate-800 pb-2.5 overflow-x-auto text-xs scrollbar-none">
           <button
+            onClick={() => setActiveTab('presets')}
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md font-medium transition-all ${
+              activeTab === 'presets' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-indigo-300" />
+            <span>Presets & Templates ({PRESET_SCENARIOS.length})</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('smart_solver')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md font-medium transition-all ${
               activeTab === 'smart_solver' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
@@ -160,6 +170,31 @@ export default function GeneratorControls({
         {/* Tab Content Panels */}
         <div className="pt-3">
           
+          {/* TAB 0: Presets & Scenarios */}
+          {activeTab === 'presets' && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+              {PRESET_SCENARIOS.map((sc) => (
+                <button
+                  key={sc.id}
+                  onClick={() => onApplyPreset(sc.id)}
+                  className="bg-slate-950/80 hover:bg-slate-800 p-3 rounded-lg border border-slate-800 hover:border-indigo-500/50 text-left transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="font-semibold text-slate-100 group-hover:text-indigo-400 transition-colors">
+                      {sc.name}
+                    </div>
+                    <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">
+                      {sc.description}
+                    </p>
+                  </div>
+                  <div className="mt-2 text-[10px] text-indigo-400 font-mono font-medium flex items-center space-x-1">
+                    <span>Load Scenario &rarr;</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
+
           {/* TAB 1: Smart Solver Engine */}
           {activeTab === 'smart_solver' && (
             <div className="space-y-3 text-xs">
@@ -408,7 +443,8 @@ export default function GeneratorControls({
                   }}
                   className="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-slate-100"
                 >
-                  <optgroup label="Commercial Banks">
+                  <optgroup label="Commercial & Savings Banks">
+                    <option value="hingham_savings">Hingham Institution for Savings (1:1)</option>
                     <option value="us_metro_bank">US Metro Bank (1:1)</option>
                     <option value="apex_national">Apex National Bank</option>
                     <option value="chase_sim">Chase Bank N.A.</option>
@@ -416,6 +452,7 @@ export default function GeneratorControls({
                     <option value="wells_sim">Wells Fargo Bank N.A.</option>
                   </optgroup>
                   <optgroup label="Credit Unions">
+                    <option value="us_1364_cu">US 1364 Federal Credit Union (1:1)</option>
                     <option value="heritage_cu">Heritage First FCU</option>
                     <option value="navy_fed_sim">Navy Federal Credit Union</option>
                     <option value="penfed_sim">Pentagon Federal Credit Union</option>

@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary tunnel & scratch
+public_download/
+temp_tunnel_url.txt
+*.png.tmp

@@ -1,4 +1,4 @@
-import { generateId } from './formatters';
+import { generateId } from './formatters.js';
 
 // Comprehensive, highly realistic, price-bounded merchants across 14 specialized categories
 export const MERCHANT_CATALOG = [
@@ -288,37 +288,128 @@ export const MERCHANT_CATALOG = [
       'ULTA BEAUTY #0892 STORE',
       'SEPHORA #0491 COSMETICS'
     ]
+  },
+
+  // 15. Mortgages & Housing Payments ($2,500.00 - $8,500.00)
+  {
+    category: 'Mortgage & Housing',
+    type: 'ACH Debit',
+    isOnline: true,
+    min: 2500.00,
+    max: 8500.00,
+    names: [
+      'CHASE HOME LENDING MORTGAGE AUTOPAY PPD',
+      'WELLS FARGO HOME MTG PMT PPD',
+      'FIRST REPUBLIC MTG DIRECT DEBIT',
+      'U.S. BANK HOME MORTGAGE ACH PMT',
+      'PENFED CREDIT UNION MORTGAGE ACH'
+    ]
+  },
+
+  // 16. Major Credit Card Autopayments ($1,200.00 - $6,500.00)
+  {
+    category: 'Credit Card Payment',
+    type: 'ACH Debit',
+    isOnline: true,
+    min: 1200.00,
+    max: 6500.00,
+    names: [
+      'AMERICAN EXPRESS EPAYMENT ACH PMT',
+      'CHASE SAPPHIRE CARD DIRECT AUTOPAY',
+      'CITI CARD ONLINE PAYMENT ACH',
+      'CAPITAL ONE ONLINE PMT AUTOPAY',
+      'APPLE CARD / GOLDMAN SACHS ACH'
+    ]
+  },
+
+  // 17. Automotive Finance & Leasing ($650.00 - $1,850.00)
+  {
+    category: 'Automotive Finance',
+    type: 'ACH Debit',
+    isOnline: true,
+    min: 650.00,
+    max: 1850.00,
+    names: [
+      'PORSCHE FINANCIAL SERVICES AUTOPAY',
+      'MERCEDES-BENZ FINANCIAL SERVICES ACH',
+      'BMW FINANCIAL SERVICES ACH PMT',
+      'TESLA FINANCE DIRECT DEBIT',
+      'AUDI FINANCIAL SERVICES LEASE PMT'
+    ]
+  },
+
+  // 18. Medical & Professional Associations ($150.00 - $1,600.00)
+  {
+    category: 'Professional & Licensing',
+    type: 'Online Purchase',
+    isOnline: true,
+    min: 150.00,
+    max: 1600.00,
+    names: [
+      'CALIFORNIA MEDICAL ASSOCIATION DUES',
+      'MEDICAL BOARD OF CA LICENSURE PPD',
+      'AMERICAN MEDICAL ASSOCIATION DUES',
+      'UPTODATE WOLTERS KLUWER HEALTH',
+      'NEW ENGLAND JOURNAL OF MEDICINE'
+    ]
+  },
+
+  // 19. Property Tax, Insurance & Wealth Advisory ($1,200.00 - $5,400.00)
+  {
+    category: 'Tax & Insurance',
+    type: 'ACH Debit',
+    isOnline: true,
+    min: 1200.00,
+    max: 5400.00,
+    names: [
+      'LOS ANGELES COUNTY TAX COLLECTOR PPD',
+      'NORTHWESTERN MUTUAL LIFE INS AUTOPAY',
+      'CHUBB PERSONAL INSURANCE AUTOPAY',
+      'VANGUARD AUTO INVESTMENT ACH',
+      'FIDELITY BROKERAGE DIRECT ACH'
+    ]
   }
 ];
 
 export function generateSmartMultiMonthTransactions({
-  startDateStr,
-  monthsCount = 1,
-  startBalance = 5000,
-  endBalance = 7500,
+  startDateStr = '2026-08-01',
+  monthsCount = 2,
+  startBalance = 213719.05,
+  endBalance = 231312.57,
   recurringRules = [],
-  locales = ['Charlotte, NC', 'Raleigh, NC']
+  locales = ['Redondo Beach, CA', 'Woodland Hills, CA', 'Pasadena, CA', 'Los Angeles, CA'],
+  targetMonthlyCounts = null // Optional explicit transaction count per month [countM1, countM2, ...]
 }) {
-  const start = new Date(startDateStr);
-  const primaryLocale = locales[0] || 'Charlotte, NC';
+  const [startYear, startMonth] = startDateStr.split('-').map(Number);
+  const primaryLocale = locales[0] || 'Redondo Beach, CA';
   const transactions = [];
 
   let totalRecurringNet = 0;
 
   // Process month by month to introduce authentic month-over-month volume variance
   for (let m = 0; m < monthsCount; m++) {
-    const currentMonthStart = new Date(start.getFullYear(), start.getMonth() + m, 1);
-    const daysInMonth = new Date(currentMonthStart.getFullYear(), currentMonthStart.getMonth() + 1, 0).getDate();
+    const monthDate = new Date(startYear, (startMonth - 1) + m, 1);
+    const curYear = monthDate.getFullYear();
+    const curMonthNum = monthDate.getMonth() + 1;
+    const daysInMonth = new Date(curYear, curMonthNum, 0).getDate();
 
-    // 1. Process Monthly Fixed Recurring Rules
+    // 1. Process Fixed / Scheduled Recurring Rules (supports explicit date or day of month)
     recurringRules.forEach(rule => {
-      let day = rule.day || 1;
-      if (day > daysInMonth) day = daysInMonth;
+      let dateStr = '';
+      if (rule.date) {
+        const [rY, rM, rD] = rule.date.split('-').map(Number);
+        if (rY === curYear && rM === curMonthNum) {
+          dateStr = rule.date;
+        } else {
+          return; // Rule does not belong in this month
+        }
+      } else {
+        let day = rule.day || 1;
+        if (day > daysInMonth) day = daysInMonth;
+        dateStr = `${curYear}-${String(curMonthNum).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      }
 
-      const txDate = new Date(currentMonthStart.getFullYear(), currentMonthStart.getMonth(), day);
-      const dateStr = txDate.toISOString().split('T')[0];
       const amt = parseFloat(rule.amount);
-
       totalRecurringNet += amt;
 
       transactions.push({
@@ -336,27 +427,50 @@ export function generateSmartMultiMonthTransactions({
   // 2. Discretionary Target Calculation across total statement span
   const overallTargetDiscretionarySum = (endBalance - startBalance) - totalRecurringNet;
 
-  // 3. Month-by-Month Dynamic Volume Allocation (stochastic variance)
-  // Instead of a static count, vary daily frequency by ±25% month-to-month (e.g., month 1 has 32 tx, month 2 has 44 tx)
+  // 3. Month-by-Month Dynamic Volume Allocation (stochastic variance or user-specified target counts)
   const monthlyDiscretionaryTx = [];
   let totalDiscretionaryCount = 0;
 
   for (let m = 0; m < monthsCount; m++) {
-    const currentMonthStart = new Date(start.getFullYear(), start.getMonth() + m, 1);
-    const daysInMonth = new Date(currentMonthStart.getFullYear(), currentMonthStart.getMonth() + 1, 0).getDate();
+    const monthDate = new Date(startYear, (startMonth - 1) + m, 1);
+    const curYear = monthDate.getFullYear();
+    const curMonthNum = monthDate.getMonth() + 1;
+    const daysInMonth = new Date(curYear, curMonthNum, 0).getDate();
 
-    // Base average is ~1.25 tx/day, modulated randomly between 0.85x and 1.45x per month
-    const monthVarianceFactor = 0.85 + Math.random() * 0.60; 
-    const monthTxCount = Math.max(10, Math.floor(daysInMonth * 1.25 * monthVarianceFactor));
+    // Count how many recurring rules exist for this month
+    const recurringInMonthCount = recurringRules.filter(rule => {
+      if (rule.date) {
+        const [rY, rM] = rule.date.split('-').map(Number);
+        return rY === curYear && rM === curMonthNum;
+      }
+      return true;
+    }).length;
 
-    monthlyDiscretionaryTx.push({ monthIndex: m, daysInMonth, count: monthTxCount, monthStart: currentMonthStart });
+    let monthTxCount;
+    if (targetMonthlyCounts && Array.isArray(targetMonthlyCounts) && targetMonthlyCounts[m] !== undefined) {
+      // Exact user-specified monthly target count
+      const totalTarget = targetMonthlyCounts[m];
+      monthTxCount = Math.max(1, totalTarget - recurringInMonthCount);
+    } else {
+      // Natural stochastic variance: ~0.80 - 1.05 tx/day, modulated randomly between 0.85x and 1.25x per month
+      const monthVarianceFactor = 0.85 + Math.random() * 0.40;
+      monthTxCount = Math.max(10, Math.floor(daysInMonth * 0.80 * monthVarianceFactor));
+    }
+
+    monthlyDiscretionaryTx.push({
+      monthIndex: m,
+      year: curYear,
+      monthNum: curMonthNum,
+      daysInMonth,
+      count: monthTxCount
+    });
     totalDiscretionaryCount += monthTxCount;
   }
 
   // 4. Generate Raw Discretionary Transactions for each Month with Locale Anchoring
   const rawDiscretionary = [];
 
-  monthlyDiscretionaryTx.forEach(({ monthIndex, daysInMonth, count, monthStart }) => {
+  monthlyDiscretionaryTx.forEach(({ monthIndex, year, monthNum, daysInMonth, count }) => {
     // Generate day-by-day locales for this specific month (prevents mid-day city jumping)
     const dayLocales = [];
     let currentLoc = primaryLocale;
@@ -376,10 +490,9 @@ export function generateSmartMultiMonthTransactions({
     }
 
     for (let i = 0; i < count; i++) {
-      const dayOffset = Math.floor(Math.random() * daysInMonth);
-      const txDateObj = new Date(monthStart.getFullYear(), monthStart.getMonth(), dayOffset + 1);
-      const dateStr = txDateObj.toISOString().split('T')[0];
-      const loc = dayLocales[dayOffset] || primaryLocale;
+      const day = Math.min(daysInMonth, Math.max(1, Math.floor(Math.random() * daysInMonth) + 1));
+      const dateStr = `${year}-${String(monthNum).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const loc = dayLocales[day - 1] || primaryLocale;
 
       // Pick random category & merchant
       const catObj = MERCHANT_CATALOG[Math.floor(Math.random() * MERCHANT_CATALOG.length)];
@@ -429,8 +542,64 @@ export function generateSmartMultiMonthTransactions({
     scaledDiscretionary[lastIndex].amount = parseFloat(finalNeeded.toFixed(2));
   }
 
-  // Combine fixed recurring and discretionary transactions, sorted chronologically
-  const allTx = [...transactions, ...scaledDiscretionary].sort((a, b) => new Date(a.date) - new Date(b.date));
+  // Combine fixed recurring and discretionary transactions, sorted chronologically (timezone-safe)
+  const allTx = [...transactions, ...scaledDiscretionary].sort((a, b) => a.date.localeCompare(b.date));
+
+  // 6. Build Multi-Month Reconciled Statements Structure
+  let currentRunningBal = startBalance;
+  const statements = [];
+
+  for (let m = 0; m < monthsCount; m++) {
+    const monthDate = new Date(startYear, (startMonth - 1) + m, 1);
+    const curYear = monthDate.getFullYear();
+    const curMonthNum = monthDate.getMonth() + 1;
+    const daysInMonth = new Date(curYear, curMonthNum, 0).getDate();
+
+    const mStartStr = `${curYear}-${String(curMonthNum).padStart(2, '0')}-01`;
+    const mEndStr = `${curYear}-${String(curMonthNum).padStart(2, '0')}-${String(daysInMonth).padStart(2, '0')}`;
+    const mDisplayPeriod = `${String(curMonthNum).padStart(2, '0')}-01-${String(curYear).slice(2)} THRU ${String(curMonthNum).padStart(2, '0')}-${String(daysInMonth).padStart(2, '0')}-${String(curYear).slice(2)}`;
+    const mDisplayEndingDate = `${String(curMonthNum).padStart(2, '0')}-${String(daysInMonth).padStart(2, '0')}-${String(curYear).slice(2)}`;
+
+    const monthTx = allTx.filter(t => t.date >= mStartStr && t.date <= mEndStr);
+    const mStartBal = currentRunningBal;
+
+    let mDeposits = 0;
+    let mWithdrawals = 0;
+    const txWithRunning = monthTx.map(t => {
+      const amt = parseFloat(t.amount);
+      if (amt >= 0) {
+        mDeposits += amt;
+      } else {
+        mWithdrawals += Math.abs(amt);
+      }
+      currentRunningBal = parseFloat((currentRunningBal + amt).toFixed(2));
+      return {
+        ...t,
+        runningBalance: currentRunningBal
+      };
+    });
+
+    const mEndBal = parseFloat((mStartBal + mDeposits - mWithdrawals).toFixed(2));
+
+    statements.push({
+      monthIndex: m,
+      statementMeta: {
+        startDate: mStartStr,
+        endDate: mEndStr,
+        displayPeriod: mDisplayPeriod,
+        displayEndingDate: mDisplayEndingDate
+      },
+      startingBalance: mStartBal,
+      totalDeposits: parseFloat(mDeposits.toFixed(2)),
+      totalWithdrawals: parseFloat(mWithdrawals.toFixed(2)),
+      endingBalance: mEndBal,
+      transactions: txWithRunning
+    });
+  }
+
+  // Attach statements array to allTx
+  allTx.statements = statements;
 
   return allTx;
 }
+

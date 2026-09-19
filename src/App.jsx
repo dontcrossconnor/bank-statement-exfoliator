@@ -9,59 +9,55 @@ import { MEDICAL_PRACTICE_DATA } from './data/medicalPracticeData';
 import { generateSmartMultiMonthTransactions } from './utils/smartGenerator';
 import { calculateAccountTotals } from './utils/formatters';
 import { exportVectorizedPdf } from './utils/vectorPdfExporter';
-import { triggerPrintDialog } from './utils/pdfExporter';
+import { triggerPrintDialog, exportStatementToPdf } from './utils/pdfExporter';
+
+import { HINGHAM_3MONTH_DATA } from './data/hingham3MonthData';
 
 export default function App() {
   // Quickstart Modal Overlay State
   const [isQuickstartOpen, setIsQuickstartOpen] = useState(false);
 
   // Institution & Branding State
-  const [institution, setInstitution] = useState(INSTITUTIONS.us_metro_bank);
+  const [institution, setInstitution] = useState(INSTITUTIONS.hingham_savings);
 
   // Customer State
-  const [customerInfo, setCustomerInfo] = useState(MEDICAL_PRACTICE_DATA.customerInfo);
+  const [customerInfo, setCustomerInfo] = useState(HINGHAM_3MONTH_DATA.customerInfo);
 
   // Statement Metadata & Multi-Month Controls
   const [statementMeta, setStatementMeta] = useState({
-    startDate: '2026-06-01',
+    startDate: '2026-05-01',
     endDate: '2026-07-31'
   });
-  const [monthsCount, setMonthsCount] = useState('2');
+  const [monthsCount, setMonthsCount] = useState('3');
 
   // Balance Target Engine Inputs
-  const [startBalanceInput, setStartBalanceInput] = useState(String(MEDICAL_PRACTICE_DATA.account.startingBalance));
-  const [endBalanceInput, setEndBalanceInput] = useState(String(MEDICAL_PRACTICE_DATA.month2.endBalance));
+  const [startBalanceInput, setStartBalanceInput] = useState(String(HINGHAM_3MONTH_DATA.account.startingBalance));
+  const [endBalanceInput, setEndBalanceInput] = useState(String(HINGHAM_3MONTH_DATA.account.endingBalance));
 
   // Fixed Recurring Bills Rules
   const [recurringRules, setRecurringRules] = useState([]);
 
   // Configured Locales
-  const [locales, setLocales] = useState(['Los Angeles, CA', 'Beverly Hills, CA']);
+  const [locales, setLocales] = useState(['Beverly Hills, CA', 'Los Angeles, CA']);
 
   // Accounts State
-  const [accounts, setAccounts] = useState([MEDICAL_PRACTICE_DATA.account]);
+  const [accounts, setAccounts] = useState([HINGHAM_3MONTH_DATA.account]);
 
   // Combined Multi-Month Statements Array (Month 0: May 2026, Month 1: June 2026, Month 2: July 2026)
   const [multiMonthStatements, setMultiMonthStatements] = useState([
-    MEDICAL_PRACTICE_DATA.month0,
-    MEDICAL_PRACTICE_DATA.month1,
-    MEDICAL_PRACTICE_DATA.month2
+    HINGHAM_3MONTH_DATA.month0,
+    HINGHAM_3MONTH_DATA.month1,
+    HINGHAM_3MONTH_DATA.month2
   ]);
 
   // Transactions State (Combined for Analytics Panel)
   const [transactions, setTransactions] = useState([
-    ...MEDICAL_PRACTICE_DATA.month0.deposits,
-    ...MEDICAL_PRACTICE_DATA.month0.otherCredits,
-    ...MEDICAL_PRACTICE_DATA.month0.debits,
-    ...MEDICAL_PRACTICE_DATA.month0.otherDebits,
-    ...MEDICAL_PRACTICE_DATA.month1.deposits,
-    ...MEDICAL_PRACTICE_DATA.month1.otherCredits,
-    ...MEDICAL_PRACTICE_DATA.month1.debits,
-    ...MEDICAL_PRACTICE_DATA.month1.otherDebits,
-    ...MEDICAL_PRACTICE_DATA.month2.deposits,
-    ...MEDICAL_PRACTICE_DATA.month2.otherCredits,
-    ...MEDICAL_PRACTICE_DATA.month2.debits,
-    ...MEDICAL_PRACTICE_DATA.month2.otherDebits
+    ...HINGHAM_3MONTH_DATA.month0.deposits,
+    ...HINGHAM_3MONTH_DATA.month0.debits,
+    ...HINGHAM_3MONTH_DATA.month1.deposits,
+    ...HINGHAM_3MONTH_DATA.month1.debits,
+    ...HINGHAM_3MONTH_DATA.month2.deposits,
+    ...HINGHAM_3MONTH_DATA.month2.debits
   ]);
 
   // Update End Date whenever start date or months change
@@ -76,7 +72,7 @@ export default function App() {
     const endDay = String(end.getDate()).padStart(2, '0');
     const endStr = `${endYear}-${endMonth}-${endDay}`;
     setStatementMeta(prev => ({ ...prev, endDate: endStr }));
-  }, [statementMeta.startDate, monthsCount]);
+  }, [statementMeta.startDate, monthsCount, institution.id]);
 
   // Calculated Totals & Running Balances
   const totals = useMemo(() => {
@@ -98,28 +94,103 @@ export default function App() {
       setInstitution(INSTITUTIONS[scenario.institutionId]);
     }
 
+    if (scenario.customerInfo) {
+      setCustomerInfo(scenario.customerInfo);
+    }
+
+    if (scenario.statementMeta) {
+      setStatementMeta(scenario.statementMeta);
+    }
+
+    if (scenario.monthsCount) {
+      setMonthsCount(scenario.monthsCount);
+    } else if (scenario.id === 'hingham_scenario') {
+      setMonthsCount('1');
+    }
+
     setAccounts(scenario.accounts);
     
     const startBal = scenario.accounts[0]?.startingBalance || 5000;
-    const endBal = startBal + 1500;
+    const endBal = scenario.accounts[0]?.endingBalance !== undefined
+      ? scenario.accounts[0].endingBalance
+      : startBal + 1500;
 
     setStartBalanceInput(String(startBal));
     setEndBalanceInput(String(endBal));
 
-    const newTx = generateSmartMultiMonthTransactions({
-      startDateStr: statementMeta.startDate,
-      monthsCount: parseInt(monthsCount, 10) || 1,
-      startBalance: startBal,
-      endBalance: endBal,
-      recurringRules,
-      locales
-    });
-    setTransactions(newTx);
+    if (scenario.multiMonthStatements) {
+      setMultiMonthStatements(scenario.multiMonthStatements);
+      const combined = [];
+      scenario.multiMonthStatements.forEach(s => {
+        if (s.transactions) combined.push(...s.transactions);
+        if (s.shareDraft?.transactions) combined.push(...s.shareDraft.transactions);
+        if (s.regularSavings?.transactions) combined.push(...s.regularSavings.transactions);
+      });
+      setTransactions(combined);
+    } else if (scenario.isMultiMonthHingham) {
+      setMultiMonthStatements([
+        HINGHAM_3MONTH_DATA.month0,
+        HINGHAM_3MONTH_DATA.month1,
+        HINGHAM_3MONTH_DATA.month2
+      ]);
+      setTransactions([
+        ...HINGHAM_3MONTH_DATA.month0.deposits,
+        ...HINGHAM_3MONTH_DATA.month0.debits,
+        ...HINGHAM_3MONTH_DATA.month1.deposits,
+        ...HINGHAM_3MONTH_DATA.month1.debits,
+        ...HINGHAM_3MONTH_DATA.month2.deposits,
+        ...HINGHAM_3MONTH_DATA.month2.debits
+      ]);
+    } else if (scenario.id === 'us_metro_scenario') {
+      setMultiMonthStatements([
+        MEDICAL_PRACTICE_DATA.month0,
+        MEDICAL_PRACTICE_DATA.month1,
+        MEDICAL_PRACTICE_DATA.month2
+      ]);
+      setTransactions([
+        ...MEDICAL_PRACTICE_DATA.month0.deposits,
+        ...MEDICAL_PRACTICE_DATA.month0.otherCredits,
+        ...MEDICAL_PRACTICE_DATA.month0.debits,
+        ...MEDICAL_PRACTICE_DATA.month0.otherDebits,
+        ...MEDICAL_PRACTICE_DATA.month1.deposits,
+        ...MEDICAL_PRACTICE_DATA.month1.otherCredits,
+        ...MEDICAL_PRACTICE_DATA.month1.debits,
+        ...MEDICAL_PRACTICE_DATA.month1.otherDebits,
+        ...MEDICAL_PRACTICE_DATA.month2.deposits,
+        ...MEDICAL_PRACTICE_DATA.month2.otherCredits,
+        ...MEDICAL_PRACTICE_DATA.month2.debits,
+        ...MEDICAL_PRACTICE_DATA.month2.otherDebits
+      ]);
+    } else {
+      setMultiMonthStatements(null);
+      if (scenario.sampleTransactions && scenario.sampleTransactions.length > 0) {
+        setTransactions(scenario.sampleTransactions);
+      } else {
+        const newTx = generateSmartMultiMonthTransactions({
+          startDateStr: scenario.statementMeta?.startDate || statementMeta.startDate,
+          monthsCount: parseInt(scenario.monthsCount || monthsCount, 10) || 1,
+          startBalance: startBal,
+          endBalance: endBal,
+          recurringRules,
+          locales
+        });
+        setTransactions(newTx);
+      }
+    }
   };
+
+  // Auto-apply preset scenario from URL query param if present
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const scenarioParam = params.get('scenario');
+    if (scenarioParam) {
+      handleApplyPreset(scenarioParam);
+    }
+  }, []);
 
   const handleExportPdf = () => {
     const title = `${institution.name.replace(/\s+/g, '_')}_Statement_${statementMeta.startDate}_to_${statementMeta.endDate}.pdf`;
-    exportVectorizedPdf('printable-statement', title);
+    exportStatementToPdf('printable-statement', title);
   };
 
   return (

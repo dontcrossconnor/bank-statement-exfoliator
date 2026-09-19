@@ -47,11 +47,12 @@
 }
 
 @media print {
-  body {
+  html, body, #root, main, #printable-statement {
     background-color: white !important;
     color: black !important;
     margin: 0 !important;
     padding: 0 !important;
+    width: 8.5in !important;
   }
   .no-print {
     display: none !important;
@@ -59,8 +60,8 @@
   #printable-statement {
     padding: 0 !important;
     margin: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 8.5in !important;
+    max-width: 8.5in !important;
   }
   .statement-page-canvas {
     width: 100% !important;
@@ -73,7 +74,21 @@
   }
   @page {
     size: letter portrait; /* US Standard 8.5in x 11in Bank Statement Dimension */
-    margin: 0.4in;
+    margin: 0;
+  }
+
+  .statement-page {
+    width: 8.5in !important;
+    height: 11in !important;
+    max-height: 11in !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
   }
 
   /* Force clean page breaks between major statement sections when printing */

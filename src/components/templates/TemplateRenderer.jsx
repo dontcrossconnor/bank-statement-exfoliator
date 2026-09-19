@@ -3,10 +3,18 @@ import CommercialBankTemplate from './CommercialBankTemplate';
 import CreditUnionTemplate from './CreditUnionTemplate';
 import WealthManagementTemplate from './WealthManagementTemplate';
 import USMetroBankTemplate from './USMetroBankTemplate';
-import { ChaseLogo, BofaLogo, WellsFargoLogo, UsMetroLogo } from '../vectors';
+import HinghamSavingsTemplate from './HinghamSavingsTemplate';
+import US1364CreditUnionTemplate from './US1364CreditUnionTemplate';
+import { ChaseLogo, BofaLogo, WellsFargoLogo, UsMetroLogo, HinghamLogo } from '../vectors';
 
 export default function TemplateRenderer({ templateId, ...props }) {
   switch (templateId) {
+    case 'us1364_credit_union':
+    case 'us_1364_cu':
+      return <US1364CreditUnionTemplate {...props} />;
+    case 'hingham_style':
+    case 'hingham_savings':
+      return <HinghamSavingsTemplate {...props} />;
     case 'us_metro_style':
       return <USMetroBankTemplate {...props} />;
     case 'chase_style':
