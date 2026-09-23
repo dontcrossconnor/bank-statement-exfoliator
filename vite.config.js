@@ -6,5 +6,11 @@ export default defineConfig({
   plugins: [react()],
   css: {
     postcss: './postcss.config.js'
+  },
+  server: {
+    allowedHosts: true
+  },
+  preview: {
+    allowedHosts: true
   }
 })

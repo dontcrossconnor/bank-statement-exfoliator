@@ -27,3 +27,13 @@ dist-ssr
 public_download/
 temp_tunnel_url.txt
 *.png.tmp
+temp/
+scratch/
+tests_output/
+.agents/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/

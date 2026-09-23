@@ -28,3 +28,4 @@ export {
   NavyFedLogo
 } from './BankLogos';
 export { default as Us1364Logo } from './Us1364Logo';
+export { default as Us1364Watermark } from './Us1364Watermark';

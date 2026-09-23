@@ -1,7 +1,16 @@
 import React from 'react';
 import { Building2, ShieldCheck, Download, Printer, RefreshCw, HelpCircle, CheckCircle2, AlertTriangle } from 'lucide-react';
 
-export default function Header({ institution, onExportPdf, onPrint, onNewScenario, isReconciled, onOpenQuickstart }) {
+export default function Header({ 
+  institution, 
+  exportMode = 'vector',
+  onExportModeChange,
+  onExportPdf, 
+  onPrint, 
+  onNewScenario, 
+  isReconciled, 
+  onOpenQuickstart 
+}) {
   return (
     <header className="no-print bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md bg-slate-900/90">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
@@ -73,6 +82,21 @@ export default function Header({ institution, onExportPdf, onPrint, onNewScenari
             <Printer className="w-3.5 h-3.5 text-slate-400" />
             <span>Print View</span>
           </button>
+
+          {/* Export Route Selector */}
+          <div className="flex items-center space-x-1.5 bg-slate-800 text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-700 shadow-sm">
+            <span className="text-xs text-slate-400 font-medium">Route:</span>
+            <select
+              aria-label="Export Route Selector"
+              value={exportMode}
+              onChange={(e) => onExportModeChange && onExportModeChange(e.target.value)}
+              className="bg-slate-900 text-slate-200 text-xs rounded border border-slate-700 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500 font-medium cursor-pointer"
+            >
+              <option value="vector">Standard Vector</option>
+              <option value="uluro-image-wrapped">1:1 Authentic ULURO Container</option>
+              <option value="native-vector-reencoded">Native Vector Re-encoded</option>
+            </select>
+          </div>
 
           <button
             onClick={onExportPdf}

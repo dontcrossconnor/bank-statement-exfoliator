@@ -17,6 +17,9 @@ export default function App() {
   // Quickstart Modal Overlay State
   const [isQuickstartOpen, setIsQuickstartOpen] = useState(false);
 
+  // Export Mode Route State ('vector', 'uluro-image-wrapped', 'native-vector-reencoded')
+  const [exportMode, setExportMode] = useState('vector');
+
   // Institution & Branding State
   const [institution, setInstitution] = useState(INSTITUTIONS.hingham_savings);
 
@@ -190,7 +193,15 @@ export default function App() {
 
   const handleExportPdf = () => {
     const title = `${institution.name.replace(/\s+/g, '_')}_Statement_${statementMeta.startDate}_to_${statementMeta.endDate}.pdf`;
-    exportStatementToPdf('printable-statement', title);
+    if (exportMode === 'vector') {
+      exportVectorizedPdf(institution, customerInfo, statementMeta, accounts[0], totals, title);
+    } else if (exportMode === 'uluro-image-wrapped') {
+      exportStatementToPdf('printable-statement', title);
+    } else if (exportMode === 'native-vector-reencoded') {
+      exportVectorizedPdf(institution, customerInfo, statementMeta, accounts[0], totals, title);
+    } else {
+      exportStatementToPdf('printable-statement', title);
+    }
   };
 
   return (
@@ -209,6 +220,8 @@ export default function App() {
       {/* Top Header */}
       <Header
         institution={institution}
+        exportMode={exportMode}
+        onExportModeChange={setExportMode}
         onExportPdf={handleExportPdf}
         onPrint={triggerPrintDialog}
         onNewScenario={() => handleApplyPreset('personal_checking')}

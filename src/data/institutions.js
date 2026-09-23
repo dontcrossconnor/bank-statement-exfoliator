@@ -1,5 +1,6 @@
 import { US1364_HASHMI_2MONTH_DATA } from './us1364Hashmi2MonthData.js';
-import { US1364_CREDIT_UNION_DATA } from './us1364CreditUnionData.js';
+import { US1364_CREDIT_UNION_DATA, US1364_TEST_SCENARIOS } from './us1364CreditUnionData.js';
+import { US1364_AZIZ_BERJIS_JULY_2026_DATA, US1364_AZIZ_BERJIS_AUGUST_2026_DATA, US1364_AZIZ_BERJIS_JUNE_2026_DATA } from './us1364AzizBerjisData.js';
 
 export const INSTITUTIONS = {
   // Commercial Banks
@@ -436,6 +437,183 @@ export const PRESET_SCENARIOS = [
       }
     ],
     multiMonthStatements: [US1364_CREDIT_UNION_DATA]
+  },
+  {
+    id: 'us1364_heavy_3page_scenario',
+    name: 'US 1364 Federal Credit Union - Expanded High Volume (3-Page Stress Test)',
+    description: 'Expanded statement with 28 Share Draft transactions testing seamless 3-page dynamic flow, continuation headers, and clean placement of Statement Summary and Inquiries.',
+    institutionId: 'us_1364_cu',
+    customerInfo: {
+      name: 'WILLIAM J NEWMAN',
+      address: '404 STURDY RD APT A7',
+      cityStateZip: 'VALPARAISO IN 46383-5302',
+      memberNumber: '*******680',
+      microCode: '691'
+    },
+    statementMeta: {
+      startDate: '2024-11-01',
+      endDate: '2024-11-30'
+    },
+    monthsCount: '1',
+    accounts: [
+      {
+        accountNumber: '1',
+        fullAccountNumber: '1',
+        type: 'REGULAR SAVINGS',
+        startingBalance: 302250.45,
+        endingBalance: 360666.60,
+        apy: '0.10%',
+        interestYtd: 277.87
+      },
+      {
+        accountNumber: '2',
+        fullAccountNumber: '2',
+        type: 'SHARE DRAFT',
+        startingBalance: 50731.57,
+        endingBalance: 1542.18,
+        apy: '0.00%',
+        interestYtd: 0.00
+      }
+    ],
+    multiMonthStatements: [US1364_TEST_SCENARIOS.heavyVolume3Page]
+  },
+  {
+    id: 'us1364_massive_42tx_scenario',
+    name: 'US 1364 Federal Credit Union - Massive 42-Transaction Volume (Strict 3-Page Flow)',
+    description: '42 transactions across Share Draft testing multi-page continuation and final closure block placement on Page 3.',
+    institutionId: 'us_1364_cu',
+    customerInfo: {
+      name: 'WILLIAM J NEWMAN',
+      address: '404 STURDY RD APT A7',
+      cityStateZip: 'VALPARAISO IN 46383-5302',
+      memberNumber: '*******680',
+      microCode: '691'
+    },
+    statementMeta: {
+      startDate: '2024-11-01',
+      endDate: '2024-11-30'
+    },
+    monthsCount: '1',
+    accounts: [
+      {
+        accountNumber: '1',
+        fullAccountNumber: '1',
+        type: 'REGULAR SAVINGS',
+        startingBalance: 302250.45,
+        endingBalance: 360666.60,
+        apy: '0.10%',
+        interestYtd: 277.87
+      },
+      {
+        accountNumber: '2',
+        fullAccountNumber: '2',
+        type: 'SHARE DRAFT',
+        startingBalance: 50731.57,
+        endingBalance: 812.45,
+        apy: '0.00%',
+        interestYtd: 0.00
+      }
+    ],
+    multiMonthStatements: [US1364_TEST_SCENARIOS.massiveVolume42Tx]
+  },
+  {
+    id: 'us1364_aziz_june_2026_scenario',
+    name: 'US 1364 Federal Credit Union - June 2026 (AZIZ BERJIS)',
+    description: 'June 2026 statement for AZIZ BERJIS featuring Regular Savings ($302,250.45) and Share Draft ($50,731.57) across 2 pages matching authentic PDF.',
+    institutionId: 'us_1364_cu',
+    customerInfo: US1364_AZIZ_BERJIS_JUNE_2026_DATA.customerInfo,
+    statementMeta: {
+      startDate: '2026-06-01',
+      endDate: '2026-06-30'
+    },
+    monthsCount: '1',
+    accounts: [
+      {
+        accountNumber: '1',
+        fullAccountNumber: '1',
+        type: 'REGULAR SAVINGS',
+        startingBalance: 299361.25,
+        endingBalance: 302250.45,
+        apy: '0.10%',
+        interestYtd: 149.88
+      },
+      {
+        accountNumber: '2',
+        fullAccountNumber: '2',
+        type: 'SHARE DRAFT',
+        startingBalance: 48012.04,
+        endingBalance: 50731.57,
+        apy: '0.00%',
+        interestYtd: 0.00
+      }
+    ],
+    multiMonthStatements: [US1364_AZIZ_BERJIS_JUNE_2026_DATA]
+  },
+  {
+    id: 'us1364_aziz_july_2026_scenario',
+    name: 'US 1364 Federal Credit Union - July 2026 (AZIZ BERJIS)',
+    description: 'July 2026 statement for AZIZ BERJIS featuring Regular Savings ($350,144.42) and Share Draft ($10,141.31) across 2 pages matching authentic PDF.',
+    institutionId: 'us_1364_cu',
+    customerInfo: US1364_AZIZ_BERJIS_JULY_2026_DATA.customerInfo,
+    statementMeta: {
+      startDate: '2026-07-01',
+      endDate: '2026-07-31'
+    },
+    monthsCount: '1',
+    accounts: [
+      {
+        accountNumber: '1',
+        fullAccountNumber: '1',
+        type: 'REGULAR SAVINGS',
+        startingBalance: 302250.45,
+        endingBalance: 350144.42,
+        apy: '0.10%',
+        interestYtd: 179.41
+      },
+      {
+        accountNumber: '2',
+        fullAccountNumber: '2',
+        type: 'SHARE DRAFT',
+        startingBalance: 50731.57,
+        endingBalance: 10141.31,
+        apy: '0.00%',
+        interestYtd: 0.00
+      }
+    ],
+    multiMonthStatements: [US1364_AZIZ_BERJIS_JULY_2026_DATA]
+  },
+  {
+    id: 'us1364_aziz_august_2026_scenario',
+    name: 'US 1364 Federal Credit Union - August 2026 (AZIZ BERJIS)',
+    description: 'August 2026 (+1 month incremented) statement for AZIZ BERJIS featuring Regular Savings ($353,038.76) and Share Draft ($12,161.20) across 2 pages matching authentic PDF.',
+    institutionId: 'us_1364_cu',
+    customerInfo: US1364_AZIZ_BERJIS_AUGUST_2026_DATA.customerInfo,
+    statementMeta: {
+      startDate: '2026-08-01',
+      endDate: '2026-08-31'
+    },
+    monthsCount: '1',
+    accounts: [
+      {
+        accountNumber: '1',
+        fullAccountNumber: '1',
+        type: 'REGULAR SAVINGS',
+        startingBalance: 350144.42,
+        endingBalance: 353038.76,
+        apy: '0.10%',
+        interestYtd: 209.31
+      },
+      {
+        accountNumber: '2',
+        fullAccountNumber: '2',
+        type: 'SHARE DRAFT',
+        startingBalance: 10141.31,
+        endingBalance: 12161.20,
+        apy: '0.00%',
+        interestYtd: 0.00
+      }
+    ],
+    multiMonthStatements: [US1364_AZIZ_BERJIS_AUGUST_2026_DATA]
   },
   {
     id: 'us1364_hashmi_august_scenario',
