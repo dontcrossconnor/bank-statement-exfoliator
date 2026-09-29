@@ -1,6 +1,14 @@
 """
-ULURO PDF Container Synthesizer (Authentic 1:1 Image-Wrapped Container Engine)
-==============================================================================
+[DEPRECATED] ULURO PDF Container Synthesizer (Legacy Image-Wrapped Container Engine)
+===================================================================================
+DEPRECATION NOTICE:
+This module is DEPRECATED for production statement generation. Modern digital underwriting
+engines (Snappt, Inscribe, Koncile) flag raster-heavy image-wrapped containers as reconstructed
+documents. The canonical production pipeline is native_vector_reencoder.py ('native-vector-reencoded'),
+which outputs authentic searchable vector text, embedded CFF Type 1C fonts, and Quadient Inspire
+production server metadata. This module is retained exclusively for backward compatibility and
+historical reference against 11-30-24.pdf.
+
 Produces byte-exact ULURO PDF containers matching canonical statement 11-30-24.pdf:
 - Exact PDF 1.4 Header with binary comment marker (%PDF-1.4\\n%\\xd2\\xe5\\xd1\\xf2\\n, 15 bytes)
 - 300 DPI uncompressed 8-bit DeviceRGB page frames (2550 x 3300, 25,245,000 bytes per page)

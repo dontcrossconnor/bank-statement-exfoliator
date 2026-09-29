@@ -31,6 +31,8 @@ temp/
 scratch/
 tests_output/
 .agents/
+StatementGen_Portable/
+*.zip
 
 # Python cache & bytecode
 __pycache__/

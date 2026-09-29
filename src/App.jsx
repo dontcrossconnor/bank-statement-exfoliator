@@ -17,8 +17,8 @@ export default function App() {
   // Quickstart Modal Overlay State
   const [isQuickstartOpen, setIsQuickstartOpen] = useState(false);
 
-  // Export Mode Route State ('vector', 'uluro-image-wrapped', 'native-vector-reencoded')
-  const [exportMode, setExportMode] = useState('vector');
+  // Export Mode Route State ('native-vector-reencoded' [Primary], 'vector', 'uluro-image-wrapped' [Deprecated])
+  const [exportMode, setExportMode] = useState('native-vector-reencoded');
 
   // Institution & Branding State
   const [institution, setInstitution] = useState(INSTITUTIONS.hingham_savings);

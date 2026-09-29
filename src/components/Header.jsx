@@ -3,7 +3,7 @@ import { Building2, ShieldCheck, Download, Printer, RefreshCw, HelpCircle, Check
 
 export default function Header({ 
   institution, 
-  exportMode = 'vector',
+  exportMode = 'native-vector-reencoded',
   onExportModeChange,
   onExportPdf, 
   onPrint, 
@@ -92,9 +92,9 @@ export default function Header({
               onChange={(e) => onExportModeChange && onExportModeChange(e.target.value)}
               className="bg-slate-900 text-slate-200 text-xs rounded border border-slate-700 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500 font-medium cursor-pointer"
             >
-              <option value="vector">Standard Vector</option>
-              <option value="uluro-image-wrapped">1:1 Authentic ULURO Container</option>
-              <option value="native-vector-reencoded">Native Vector Re-encoded</option>
+              <option value="native-vector-reencoded">Native Vector (Quadient Inspire Enterprise)</option>
+              <option value="vector">Standard Vector (Raw Skia)</option>
+              <option value="uluro-image-wrapped">(Deprecated) ULURO Image Container</option>
             </select>
           </div>
 

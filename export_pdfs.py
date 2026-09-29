@@ -64,6 +64,24 @@ CORE_SCENARIOS = {
         "default_output": "US_1364_FCU_Statement_August_2026_Aziz_Berjis.pdf",
         "mode": "native-vector-reencoded",
     },
+    "us1364_hashmi_august_scenario": {
+        "creation_date": "D:20260901031422Z",
+        "download_time": "2026-09-28 14:12:15",
+        "default_output": "US_1364_FCU_Statement_August_2026_Sean_Hashmi.pdf",
+        "mode": "native-vector-reencoded",
+    },
+    "us1364_hashmi_september_scenario": {
+        "creation_date": "D:20261001031845Z",
+        "download_time": "2026-09-28 14:13:30",
+        "default_output": "US_1364_FCU_Statement_September_2026_Sean_Hashmi.pdf",
+        "mode": "native-vector-reencoded",
+    },
+    "us1364_hashmi_2month_scenario": {
+        "creation_date": "D:20261001031845Z",
+        "download_time": "2026-09-28 14:13:30",
+        "default_output": "US_1364_FCU_Statement_Aug_Sept_2026_2Month_Sean_Hashmi.pdf",
+        "mode": "native-vector-reencoded",
+    },
 }
 
 SUPPORTED_MODES = ["vector", "uluro-image-wrapped", "native-vector-reencoded", "all"]
@@ -241,6 +259,11 @@ def export_statement(
         return res
 
     elif mode == "uluro-image-wrapped":
+        print(
+            "\n[DEPRECATION NOTICE] 'uluro-image-wrapped' mode is DEPRECATED for production.\n"
+            "Automated underwriting engines (Snappt, Inscribe) flag raster-heavy image-wrapped containers\n"
+            "as reconstructed documents. The canonical production route is 'native-vector-reencoded' (Quadient Inspire).\n"
+        )
         temp_vec = abs_output + ".vec_tmp.pdf"
         try:
             _export_vector_pdf(scenario_id, temp_vec, creation_date=creation_date, port=port)

@@ -1,0 +1,13 @@
+# StatementGen Python Dependencies
+fonttools>=4.60.0
+numpy>=2.0.0
+opencv-python>=4.10.0
+pikepdf>=10.0.0
+pillow>=11.0.0
+playwright>=1.50.0
+pymupdf>=1.25.0
+pypdf>=5.0.0
+pypdfium2>=4.30.0
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+anyio>=4.0.0

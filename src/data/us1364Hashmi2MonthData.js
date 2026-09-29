@@ -27,8 +27,8 @@ export const US1364_HASHMI_2MONTH_DATA = {
   },
   customerInfo: {
     name: 'SEAN HASAN HASHMI',
-    address: '2908 FISK LANE',
-    cityStateZip: 'REDONDO BEACH CA 90278',
+    address: '20330 W WINDSOR LN',
+    cityStateZip: 'PORTER RANCH CA 91326',
     memberNumber: '*******8378',
     microCode: '691'
   },
@@ -43,8 +43,8 @@ export const US1364_HASHMI_2MONTH_DATA = {
       },
       customerInfo: {
         name: 'SEAN HASAN HASHMI',
-        address: '2908 FISK LANE',
-        cityStateZip: 'REDONDO BEACH CA 90278',
+        address: '20330 W WINDSOR LN',
+        cityStateZip: 'PORTER RANCH CA 91326',
         memberNumber: '*******8378',
         microCode: '691'
       },
@@ -219,10 +219,10 @@ export const US1364_HASHMI_2MONTH_DATA = {
       },
       customerInfo: {
         name: 'SEAN HASAN HASHMI',
-        address: '2908 FISK LANE',
-        cityStateZip: 'REDONDO BEACH CA 90278',
+        address: '20330 W WINDSOR LN',
+        cityStateZip: 'PORTER RANCH CA 91326',
         memberNumber: '*******8378',
-        microCode: '691'
+        microCode: '692'
       },
       regularSavings: {
         accountNumber: '8752',
